@@ -23,9 +23,15 @@
         h2 { color: #ffb5c5; text-align: center; font-size: 1.8rem; margin-bottom: 35px; letter-spacing: 2px; font-weight: 900; }
 
         .notice-card { background: #fffbfc; padding: 25px; border-radius: 18px; margin-bottom: 20px; border: 1px solid #fff0f3; }
-        .notice-card h3 { font-size: 1.1rem; color: #ff85a1; margin-top: 0; margin-bottom: 12px; display: inline-block; border-bottom: 2.5px solid #ffd9e2; padding-bottom: 4px; font-weight: 800; }
+        
+        /* 소제목 밑줄 제거 */
+        .notice-card h3 { font-size: 1.1rem; color: #ff85a1; margin-top: 0; margin-bottom: 12px; display: inline-block; padding-bottom: 4px; font-weight: 800; border-bottom: none; }
+        
         .notice-card p { font-size: 0.92rem; line-height: 1.8; color: #9a8084; margin: 8px 0; font-weight: 600; }
-        .order-highlight { background: #ffffff; padding: 18px; border-radius: 12px; text-align: center; font-weight: 800; color: #ff85a1; margin: 15px 0; font-size: 0.95rem; border: 1.5px dashed #ffd9e2; letter-spacing: 1px; }
+
+        /* 이름 순서 초록 계열 포인트 */
+        .order-highlight { background: #f2faf2; padding: 18px; border-radius: 12px; text-align: center; font-weight: 800; color: #78a678; margin: 15px 0; font-size: 0.95rem; border: 1.5px dashed #dff4df; letter-spacing: 1px; }
+        
         .schedule-list { font-size: 0.85rem; line-height: 2.2; color: #9a8084; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #fff0f3; margin-top: 10px; font-weight: 700; }
 
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
@@ -35,16 +41,17 @@
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
         .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 100px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; }
         .day span { margin-bottom: 6px; font-weight: 700; }
-        .day.head { background: #fff5f7; color: #ffb5c5; font-weight: 900; min-height: auto; padding: 15px 0; }
+        .day.head { background: #fffcfd; color: #f2cbd2; font-weight: 900; min-height: auto; padding: 15px 0; border-bottom: 1px solid #fff5f7; }
         
         .bar { height: 20px; font-size: 0.58rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; }
         .bar.start { border-radius: 10px 0 0 10px; width: 92%; margin-left: 8%; }
         .bar.end { border-radius: 0 10px 10px 0; width: 92%; margin-right: 8%; }
         .bar.middle { width: 100%; border-radius: 0; }
         .bar.single { border-radius: 10px; width: 88%; margin: 0 auto; }
-        .bg-read { background-color: #ffe4e9; color: #ff85a1; }
-        .bg-ex { background-color: #dff4df; color: #78a678; } 
-        .bg-return { background-color: #f3efff; color: #a689ff; }
+        
+        .bg-read { background-color: #fff0f3; color: #ffb5c5; }
+        .bg-ex { background-color: #f2faf2; color: #a8c4a8; }
+        .bg-return { background-color: #f8f6ff; color: #c0b0ff; }
 
         .board-wrapper { width: 100%; height: 75vh; border-radius: 18px; overflow: hidden; border: 1px solid #ffeef1; }
         
