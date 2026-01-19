@@ -7,142 +7,68 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <style>
         * { box-sizing: border-box; }
-        body, html { 
-            margin: 0; padding: 0; 
-            font-family: 'NanumSquare', sans-serif; 
-            scroll-behavior: smooth; 
-            background: #fffafb; 
-            color: #888; 
-            text-transform: lowercase; 
-        }
-        
-        /* 네비게이션 */
-        .top-nav { 
-            position: fixed; top: 0; width: 100%; height: 55px; 
-            background: #ffcbd5; 
-            display: flex; justify-content: center; align-items: center; gap: 10px; z-index: 1000; 
-            box-shadow: 0 1px 10px rgba(255, 180, 190, 0.2); 
-        }
-        .top-nav a { 
-            text-decoration: none; color: #ffffff; font-weight: 800; font-size: 0.8rem; 
-            padding: 6px 15px; border-radius: 20px; transition: 0.3s;
-        }
+        body, html { margin: 0; padding: 0; font-family: 'NanumSquare', sans-serif; scroll-behavior: smooth; background: #fffafb; color: #888; text-transform: lowercase; }
+        .top-nav { position: fixed; top: 0; width: 100%; height: 55px; background: #ffcbd5; display: flex; justify-content: center; align-items: center; gap: 10px; z-index: 1000; box-shadow: 0 1px 10px rgba(255, 180, 190, 0.2); }
+        .top-nav a { text-decoration: none; color: #ffffff; font-weight: 800; font-size: 0.8rem; padding: 6px 15px; border-radius: 20px; transition: 0.3s; }
         .top-nav a.active { background: #ffffff; color: #ff85a1; box-shadow: 0 2px 8px rgba(255, 133, 161, 0.2); }
-
         .hero { height: 100vh; background-image: url('cover.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
         section { min-height: 100vh; padding: 100px 10px 40px; }
-        .container { 
-            max-width: 800px; margin: 0 auto; background: white; 
-            padding: 35px 20px; border-radius: 15px; 
-            border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); 
-        }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 35px 20px; border-radius: 15px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); }
         h2 { color: #ffb5c5; text-align: center; font-size: 1.8rem; margin-bottom: 30px; letter-spacing: 2px; font-weight: 800; }
-
-        /* 노티스 디자인 유지 */
         .notice-card { background: #fffbfc; padding: 25px; border-radius: 12px; border: none; margin-bottom: 20px; }
-        .notice-card h3 { 
-            font-size: 1.05rem; color: #ff85a1; margin-top: 0; margin-bottom: 15px; 
-            display: inline-block; border-bottom: 2.5px solid #ffd9e2; padding-bottom: 2px; font-weight: 800;
-        }
+        .notice-card h3 { font-size: 1.05rem; color: #ff85a1; margin-top: 0; margin-bottom: 15px; display: inline-block; border-bottom: 2.5px solid #ffd9e2; padding-bottom: 2px; font-weight: 800; }
         .notice-card p { font-size: 0.88rem; line-height: 1.8; color: #9a8084; margin: 5px 0; }
-        
-        .schedule-list { font-size: 0.82rem; line-height: 2.2; color: #9a8084; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #fff0f3; }
-        .order-highlight { 
-            background: #ffffff; padding: 15px; border-radius: 8px; 
-            text-align: center; font-weight: 800; color: #ff85a1; 
-            margin: 15px 0; font-size: 0.95rem; border: 1px solid #ffd9e2; 
-        }
-
-        /* 캘린더 디자인 복구 */
-        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 10px; }
+        .order-highlight { background: #ffffff; padding: 15px; border-radius: 8px; text-align: center; font-weight: 800; color: #ff85a1; margin: 15px 0; font-size: 0.95rem; border: 1px solid #ffd9e2; }
+        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; padding: 8px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; transition: 0.3s; }
-        .arrow-btn:disabled { background: #fdf2f3; color: #ddd; cursor: default; }
-        
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
         .day { padding: 5px; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 100px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: flex-start; position: relative; font-weight: 700; }
-        .day.head { 
-            background: #fff5f7; color: #ffb5c5; font-weight: 800; min-height: auto; 
-            padding: 12px 0; border: none; border-right: 1px solid #fff0f3; 
-            align-items: center; justify-content: center; font-size: 0.7rem;
-        }
-        
-        /* 캘린더 바 수정 */
-        .bar { height: 18px; font-size: 0.55rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; z-index: 1; white-space: nowrap; overflow: hidden; }
+        .day.head { background: #fff5f7; color: #ffb5c5; font-weight: 800; min-height: auto; padding: 12px 0; border: none; border-right: 1px solid #fff0f3; align-items: center; justify-content: center; font-size: 0.7rem; }
+        .bar { height: 18px; font-size: 0.55rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; z-index: 1; white-space: nowrap; }
         .bar.start { border-top-left-radius: 9px; border-bottom-left-radius: 9px; width: 98%; margin-left: 2%; }
         .bar.end { border-top-right-radius: 9px; border-bottom-right-radius: 9px; width: 98%; margin-right: 2%; }
         .bar.middle { width: 100%; border-radius: 0; }
         .bar.single { border-radius: 9px; width: 94%; margin: 0 auto; }
-
         .bg-read { background-color: #ffe4e9; color: #ff85a1; }
         .bg-ex { background-color: #e8f4ff; color: #8ec3ff; }
         .bg-return { background-color: #f3efff; color: #a689ff; }
-
-        /* 보드 */
         .board-wrapper { width: 100%; height: 650px; border-radius: 12px; overflow: hidden; border: 1px solid #ffeef1; margin-top: 20px; }
     </style>
 </head>
 <body>
-    <nav class="top-nav" id="main-nav">
+    <nav class="top-nav">
         <a href="#" class="nav-link active">home</a>
         <a href="#notice" class="nav-link">notice</a>
         <a href="#calendar" class="nav-link">calendar</a>
         <a href="#board" class="nav-link">board</a>
     </nav>
-
     <header class="hero" id="home"></header>
-
     <section id="notice">
         <div class="container">
             <h2>notice</h2>
             <div class="notice-card"><h3>✉️ 목표</h3><p>약 30일 동안 한 권, 총 7권의 책을 함께 읽기</p></div>
-            <div class="notice-card">
-                <h3>✉️ 진행 방식</h3>
-                <div class="order-highlight">미나 ➡ 민주 ➡ 우빈 ➡ 서현 ➡ 원 ➡ 지은 ➡ 예진</div>
-                <p style="text-align:center; font-size: 0.8rem;">한 달간 독서 후 다음 순서의 친구에게 책과 편지를 전달합니다.</p>
-            </div>
-            <div class="notice-card">
-                <h3>✉️ 상세 일정</h3>
-                <div class="schedule-list">
-                    ➊ 📖 2/1 - 3/2 &nbsp; | &nbsp; 📦 3/3 - 3/9<br>
-                    ➋ 📖 3/10 - 4/8 &nbsp; | &nbsp; 📦 4/9 - 4/15<br>
-                    ➌ 📖 4/16 - 5/15 &nbsp; | &nbsp; 📦 5/16 - 5/22<br>
-                    ➍ 📖 5/23 - 6/21 &nbsp; | &nbsp; 📦 6/22 - 6/28<br>
-                    ➎ 📖 6/29 - 7/28 &nbsp; | &nbsp; 📦 7/29 - 8/4<br>
-                    ➏ 📖 8/5 - 9/3 &nbsp; | &nbsp; 📦 9/4 - 9/10<br>
-                    ➐ 📖 9/11 - 10/10 &nbsp; | &nbsp; 🏠 반환 및 마무리
-                </div>
-            </div>
+            <div class="notice-card"><h3>✉️ 진행 방식</h3><div class="order-highlight">미나 ➡ 민주 ➡ 우빈 ➡ 서현 ➡ 원 ➡ 지은 ➡ 예진</div></div>
         </div>
     </section>
-
-    <section id="calendar">
-        <div class="container" id="cal-container"></div>
-    </section>
-
+    <section id="calendar"><div class="container" id="cal-container"></div></section>
     <section id="board">
         <div class="container">
             <h2>board</h2>
             <div class="notice-card" style="text-align: center;">
-                <h3 style="display: block; border: none; margin-bottom: 5px;">📸 share your moment</h3>
-                <p style="margin-bottom: 20px;">게시판 오른쪽 하단 <b>(+) 버튼</b>을 눌러 <br>오늘의 책 사진이나 코멘트를 남겨주세요!</p>
+                <h3>📸 share your moment</h3>
+                <p>오른쪽 하단 <b>(+) 버튼</b>을 눌러 사진을 남겨주세요!</p>
                 <div class="board-wrapper">
-                    <iframe src="https://padlet.com/embed/minarimon/padlet-7hw5srufe93eqxm4" 
-                            frameborder="0" width="100%" height="100%" 
-                            style="background: #fff; border-radius: 12px;"
-                            allow="camera;microphone;geolocation"></iframe>
+                    <iframe src="https://padlet.com/embed/7hw5srufe93eqxm4" frameborder="0" width="100%" height="100%" style="background: #fff; border-radius: 12px;" allow="camera;microphone;geolocation"></iframe>
                 </div>
             </div>
         </div>
     </section>
-
     <script>
         const monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
         const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
         const startDate = new Date(2026, 1, 1);
         let schedule = [];
         let tempDate = new Date(startDate);
-
-        // 스케줄 데이터 생성 로직 수정
         for (let i = 1; i <= 6; i++) {
             let rStart = new Date(tempDate);
             tempDate.setDate(tempDate.getDate() + 29);
@@ -153,47 +79,23 @@
             schedule.push({ start: eStart, end: new Date(tempDate), label: i + ` 교환`, type: 'ex' });
             tempDate.setDate(tempDate.getDate() + 1);
         }
-        let r7Start = new Date(tempDate);
-        tempDate.setDate(tempDate.getDate() + 29);
-        schedule.push({ start: r7Start, end: new Date(tempDate), label: `7 독서`, type: 'read' });
-        tempDate.setDate(tempDate.getDate() + 1);
-        schedule.push({ start: new Date(tempDate), end: new Date(tempDate), label: `마무리`, type: 'return' });
-
         function renderCalendar(monthIdx) {
             const year = 2026;
             const container = document.getElementById('cal-container');
-            if(!container) return;
             const firstDay = new Date(year, monthIdx, 1).getDay();
             const lastDate = new Date(year, monthIdx + 1, 0).getDate();
-            
-            let html = `<h2>calendar</h2>
-                <div class="cal-header">
-                    <button class="arrow-btn" ${monthIdx <= 1 ? 'disabled' : `onclick="renderCalendar(${monthIdx-1})"`}>prev</button>
-                    <h3 style="margin:0; font-size: 1.2rem; color: #ffb5c5; font-weight: 800;">${monthNames[monthIdx]}</h3>
-                    <button class="arrow-btn" ${monthIdx >= 9 ? 'disabled' : `onclick="renderCalendar(${monthIdx+1})"`}>next</button>
-                </div>
-                <div class="grid">`;
-            
+            let html = `<h2>calendar</h2><div class="cal-header"><button class="arrow-btn" ${monthIdx <= 1 ? 'disabled' : `onclick="renderCalendar(${monthIdx-1})"`}>prev</button><h3 style="margin:0; font-size: 1.2rem; color: #ffb5c5; font-weight: 800;">${monthNames[monthIdx]}</h3><button class="arrow-btn" ${monthIdx >= 9 ? 'disabled' : `onclick="renderCalendar(${monthIdx+1})"`}>next</button></div><div class="grid">`;
             dayNames.forEach(day => { html += `<div class="day head">${day}</div>`; });
             for (let i = 0; i < firstDay; i++) html += `<div class="day"></div>`;
-            
             for (let d = 1; d <= lastDate; d++) {
                 const cur = new Date(year, monthIdx, d);
                 html += `<div class="day">${d}`;
-                
                 schedule.forEach(item => {
-                    const s = new Date(item.start.getFullYear(), item.start.getMonth(), item.start.getDate());
-                    const e = new Date(item.end.getFullYear(), item.end.getMonth(), item.end.getDate());
-                    const c = new Date(cur.getFullYear(), cur.getMonth(), cur.getDate());
-                    
-                    if (c >= s && c <= e) {
-                        const isStart = c.getTime() === s.getTime();
-                        const isEnd = c.getTime() === e.getTime();
+                    if (cur >= item.start && cur <= item.end) {
+                        const isStart = cur.getTime() === item.start.getTime();
+                        const isEnd = cur.getTime() === item.end.getTime();
                         let shapeClass = (isStart && isEnd) ? "single" : (isStart ? "start" : (isEnd ? "end" : "middle"));
-                        
-                        // 글자가 시작일이나 일요일, 또는 매월 1일에만 나오도록 설정
-                        const showLabel = isStart || c.getDay() === 0 || d === 1;
-                        const labelText = showLabel ? item.label : '';
+                        const labelText = isStart || cur.getDay() === 0 || d === 1 ? item.label : '';
                         html += `<div class="bar bg-${item.type} ${shapeClass}">${labelText}</div>`;
                     }
                 });
@@ -201,25 +103,6 @@
             }
             container.innerHTML = html;
         }
-
-        // 스크롤 감지
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section, header');
-            const navLinks = document.querySelectorAll('.nav-link');
-            let current = "";
-            sections.forEach(section => {
-                if (pageYOffset >= (section.offsetTop - 150)) {
-                    current = section.getAttribute('id') || "home";
-                }
-            });
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').substring(1) === current || (link.getAttribute('href') === "#" && current === "home")) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
         window.onload = function() { renderCalendar(1); };
     </script>
 </body>
