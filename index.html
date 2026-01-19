@@ -3,116 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>다산 북클럽</title>
+    <title>Dasan Book Club</title>
     <style>
         * { box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; scroll-behavior: smooth; }
+        body, html { margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; scroll-behavior: smooth; background: #fafafa; color: #777; } /* 전체 글자 연한 회색 */
 
-        /* [1] 첫 화면: 배경 및 버튼 2개 */
+        /* [1] 상단 고정 메뉴바 */
+        .top-nav {
+            position: fixed; top: 0; width: 100%; height: 60px;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(5px);
+            display: flex; justify-content: center; align-items: center;
+            gap: 20px; z-index: 1000; box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        }
+        .top-nav a { text-decoration: none; color: #888; font-weight: bold; font-size: 0.85rem; padding: 8px 15px; border-radius: 20px; transition: 0.3s; }
+        .top-nav a:hover { color: #ffccd5; } /* 호버 시 연한 핑크 */
+        .top-nav a.home-link { background: #f0f0f0; color: #999; }
+
+        /* [2] 첫 화면 (Hero) */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1500&q=80');
+            background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), 
+                        url('https://images.unsplash.com/photo-1491843389645-a925bc050ce9?auto=format&fit=crop&w=1500&q=80');
             background-size: cover; background-position: center;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; color: white;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; color: #555;
         }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 40px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        .btn-group { display: flex; gap: 20px; }
-        .nav-btn { 
-            padding: 15px 35px; font-size: 1.1rem; border-radius: 50px; border: 2px solid white;
-            color: white; text-decoration: none; font-weight: bold; transition: 0.3s;
-        }
-        .nav-btn:hover { background: white; color: #333; }
+        .hero h1 { font-size: 3.5rem; margin: 0; letter-spacing: -1px; }
 
-        /* 컨텐츠 공통 스타일 */
-        section { min-height: 100vh; padding: 80px 20px; display: none; background: #f8f9fa; }
-        section:target { display: block; } /* 클릭 시 해당 섹션만 보임 */
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h2 { color: #4a6741; text-align: center; font-size: 2rem; margin-bottom: 30px; }
+        /* [3] 섹션 공통 스타일 */
+        section { min-height: 100vh; padding: 100px 20px 40px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 30px; border: 1px solid #f0f0f0; }
+        h2 { color: #ffccd5; text-align: center; font-size: 1.8rem; margin-bottom: 30px; letter-spacing: 1px; }
 
-        /* [2] 순서와 규칙 스타일 */
-        .rule-box { background: #f1f8e9; padding: 25px; border-radius: 15px; margin-bottom: 20px; }
-        .order-text { font-size: 1.5rem; font-weight: bold; color: #2e7d32; text-align: center; display: block; }
+        /* [4] Notice Style */
+        .rule-card { background: #fff5f7; padding: 25px; border-radius: 20px; margin-top: 20px; border: 1px dashed #ffccd5; }
+        .order-highlight { font-size: 1.3rem; font-weight: bold; color: #ff8fa3; text-align: center; display: block; margin: 15px 0; }
 
-        /* [3] 캘린더 스타일 (슬라이드 방식) */
-        .calendar-wrapper { position: relative; }
-        .month-content { display: none; }
-        .month-content.active { display: block; }
+        /* [5] Calendar Style */
+        .month-section { display: none; }
+        .month-section:target { display: block; }
+        #m2 { display: block; }
 
-        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .arrow { cursor: pointer; font-size: 1.5rem; background: #4a6741; color: white; border: none; padding: 10px 15px; border-radius: 50%; }
-        
-        .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
-        .day { padding: 15px; border: 1px solid #eee; border-radius: 8px; font-size: 0.9rem; min-height: 80px; }
-        .day.head { background: #4a6741; color: white; font-weight: bold; min-height: auto; }
-        .event { color: #d32f2f; font-weight: bold; font-size: 0.7rem; margin-top: 5px; }
+        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #fef1f3; padding-bottom: 15px; }
+        .arrow-btn { text-decoration: none; background: #ffccd5; color: white; padding: 8px 18px; border-radius: 50px; font-weight: bold; font-size: 0.75rem; }
+        .arrow-btn.disabled { background: #eee; color: #ccc; pointer-events: none; }
 
-        .back-home { display: block; text-align: center; margin-top: 40px; color: #888; text-decoration: none; }
+        .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
+        .day { padding: 12px 5px; border: 1px solid #fafafa; border-radius: 10px; font-size: 0.8rem; min-height: 70px; color: #aaa; }
+        .day.head { background: #fff0f3; color: #ff8fa3; font-weight: bold; min-height: auto; padding: 10px 0; border: none; }
+        .event { color: #ff8fa3; font-weight: bold; font-size: 0.65rem; margin-top: 5px; }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="hero">
-        <h1>다산 북클럽</h1>
-        <div class="btn-group">
-            <a href="#notice" class="nav-btn">1. 순서와 규칙</a>
-            <a href="#calendar" class="nav-btn">2. 활동 캘린더</a>
-        </div>
-    </div>
+    <nav class="top-nav">
+        <a href="#" class="home-link">Home</a>
+        <a href="#notice">Notice</a>
+        <a href="#calendar">Calendar</a>
+    </nav>
+
+    <header class="hero">
+        <h1>Dasan Book Club</h1>
+        <p style="margin-top: 15px; font-size: 1rem; color: #888;">welcome to our bookish journey</p>
+    </header>
 
     <section id="notice">
         <div class="container">
-            <h2>📢 순서와 규칙</h2>
-            <div class="rule-box">
-                <p style="text-align: center; margin-bottom: 10px;">[발제 전달 순서]</p>
-                <span class="order-text">지은 → 민수 → 서연 → 도윤 → 지후</span>
+            <h2>Notice</h2>
+            <div class="rule-card">
+                <p style="text-align:center; font-size: 0.9rem; color: #ff8fa3;">[ Presentation Order ]</p>
+                <span class="order-highlight">Ji-eun → Min-su → Seo-yeon → Do-yun → Ji-hu</span>
             </div>
-            <div class="rule-box" style="background: #fff; border: 1px solid #eee;">
-                <h3>[운영 규칙]</h3>
+            <div style="margin-top: 30px; padding: 0 10px; font-size: 0.9rem;">
+                <h3 style="color: #ffccd5;">Our Rules</h3>
                 <ul>
-                    <li>매월 정기 모임 전 완독 필수</li>
-                    <li>발제 질문은 모임 3일 전까지 공유</li>
-                    <li>모임 시간은 칼같이 준수!</li>
+                    <li>Monthly meeting on the last week (Reading is a must!)</li>
+                    <li>Presenter shares questions 3 days before the meeting.</li>
+                    <li>Listen and respect each other's thoughts.</li>
                 </ul>
             </div>
-            <a href="#" class="back-home">◀ 처음으로 돌아가기</a>
         </div>
     </section>
 
     <section id="calendar">
         <div class="container">
-            <h2>📅 활동 캘린더</h2>
-            
-            <div class="calendar-wrapper">
-                <div id="m2" class="month-content active">
-                    <div class="cal-header">
-                        <button class="arrow" disabled style="opacity:0.3">◀</button>
-                        <h3>2026년 2월</h3>
-                        <button class="arrow" onclick="showMonth('m3')">▶</button>
-                    </div>
-                    <div class="grid">
-                        <div class="day head">일</div><div class="day head">월</div><div class="day head">화</div><div class="day head">수</div><div class="day head">목</div><div class="day head">금</div><div class="day head">토</div>
-                        <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
-                        <div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14<div class="event">정기모임</div></div>
-                        <div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div>
-                        <div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div>
-                    </div>
-                </div>
+            <h2>Calendar</h2>
 
-                <div id="m3" class="month-content">
-                    <div class="cal-header">
-                        <button class="arrow" onclick="showMonth('m2')">◀</button>
-                        <h3>2026년 3월</h3>
-                        <button class="arrow" onclick="showMonth('m4')">▶</button>
-                    </div>
-                    <div class="grid">
-                        <div class="day head">일</div><div class="day head">월</div><div class="day head">화</div><div class="day head">수</div><div class="day head">목</div><div class="day head">금</div><div class="day head">토</div>
-                        <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
-                    </div>
+            <div id="m2" class="month-section">
+                <div class="cal-header">
+                    <a href="#" class="arrow-btn disabled">Prev</a>
+                    <h3 style="margin:0; color: #ff8fa3;">Feb 2026</h3>
+                    <a href="#m3" class="arrow-btn">Next</a>
                 </div>
+                <div class="grid">
+                    <div class="day head">Sun</div><div class="day head">Mon</div><div class="day head">Tue</div><div class="day head">Wed</div><div class="day head">Thu</div><div class="day head">Fri</div><div class="day head">Sat</div>
+                    <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
+                    <div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14<div class="event">Meeting</div></div>
+                    <div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div>
+                    <div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div>
+                </div>
+            </div>
 
-                <div id="m4" class="month-content"><div class="cal-header"><button class="arrow" onclick="showMonth('m3')">◀</button><h3>4월</h3><button class="arrow" onclick="showMonth('m5')">▶</button></div><p style="text-align:center">4월 일정을 준비 중입니다.</p></div>
-                <div id="m5" class="month-content"><div class="cal-header"><button class="arrow" onclick="showMonth('m4')">◀</button><h3>5월</h3><button class="arrow" onclick="showMonth('m6')">▶</button></div><p style="text-align:center">5월 일정을 준비 중입니다.</p></div>
-                <div id="m6" class="month-content"><div class="cal-header"><button class="arrow" onclick="showMonth('m5')">◀</button><h3>6월</h3><button class="arrow" onclick="showMonth('m7')">▶</button></div><p style="text-align:center">6월 일정을 준비 중입니다.</p></div>
-                <div id="m7" class="month-content"><div class="cal-header"><button class="arrow" onclick="showMonth('m6')">◀</button><h3>7월</h3><button class="arrow" onclick="showMonth('m8')">▶</button></div><p style="text-align:center">7월 일정을 준비 중입니다.</p></div>
-                <div id="m8" class="month-content"><div class="cal-header"><button class="arrow" onclick="showMonth('m7')">◀</button
+            <div id="m3" class="month-section">
+                <div class="cal-header">
+                    <a href="#m2" class="arrow-btn">Prev</a>
+                    <h3 style="margin:0; color: #ff8fa3;">Mar 2026</h3>
+                    <a href="#m4" class="arrow-btn">Next</a>
+                </div>
+                <div class="grid">
+                    <div class="day head">Sun</div><div class="day head">Mon</div><div class="day head">Tue</div><div class="day head">Wed</div><div class="day head">Thu</div><div class="day head">Fri</div><div class="day head">Sat</div>
+                    <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
+                    <div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div>
+                </div>
+            </div>
+
+            <div id="m4" class="month-section"><div class="cal-header"><a href="#m3" class="arrow-btn">Prev</a><h3 style="color: #ff8fa3;">Apr</h3><a href="#m5" class="arrow-btn">Next</a></div><p style="text-align:center">Coming soon...</p></div>
+            <div id="m5" class="month-section"><div class="cal-header"><a href="#m4" class="arrow-btn">Prev</a><h3 style="color: #ff8fa3;">May</h3><a href="#m6" class="arrow-btn">Next</a></div><p style="text-align:center">Coming soon...</p></div>
+            <div id="m6" class="month-section"><div class="cal-header"><a href="#m5" class="arrow-btn">Prev</a><h3 style="color: #ff8fa3;">Jun</h3><a href="#m7" class="arrow-btn">Next</a></div><p style="text-align:center">Coming soon...</p></div>
+            <div id="m7" class="month-section"><div class="cal-header"><a href="#m6" class="arrow-btn">Prev</a><h3 style="color: #ff8fa3;">Jul</h3><a href="#m8" class="arrow-btn">Next</a></div><p style="text-align:center">Coming soon...</p></div>
+            <div id="m8" class="month-section"><div class="cal-header"><a href="#m7" class="arrow-btn">Prev</a><h3 style="color: #ff8fa3;">Aug</h3><a href="#calendar" class="arrow-btn disabled">End</a></div><p style="text-align:center">This is the end of the schedule.</p></div>
+
+        </div>
+    </section>
+
+</body>
+</html>
