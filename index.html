@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dasan Book Club</title>
+    <title>dasan book club</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <style>
         * { box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; scroll-behavior: smooth; background: #fffafb; color: #888; }
+        body, html { 
+            margin: 0; padding: 0; 
+            font-family: 'NanumSquare', sans-serif; 
+            scroll-behavior: smooth; 
+            background: #fffafb; 
+            color: #888; 
+            text-transform: lowercase; /* 영문 소문자 통일 */
+        }
         
-        /* 상단 네비게이션 */
+        /* 1. 상단 네비게이션: 핑크 배경 + 흰색 글자 */
         .top-nav { 
             position: fixed; top: 0; width: 100%; height: 55px; 
             background: #ffcbd5; 
@@ -16,65 +24,99 @@
             box-shadow: 0 1px 10px rgba(255, 180, 190, 0.2); 
         }
         .top-nav a { 
-            text-decoration: none; color: #ffffff; font-weight: bold; font-size: 0.8rem; 
+            text-decoration: none; color: #ffffff; font-weight: 800; font-size: 0.8rem; 
             padding: 6px 15px; border-radius: 20px; transition: 0.3s;
         }
-
-        /* ✨ 현재 누르고 있는 메뉴 스타일 (Active) */
+        /* 현재 위치 강조 */
         .top-nav a.active {
-            background: #ffffff; /* 흰색 배경 */
-            color: #ff85a1;      /* 핑크색 글자 */
+            background: #ffffff; 
+            color: #ff85a1; 
             box-shadow: 0 2px 8px rgba(255, 133, 161, 0.2);
         }
 
+        /* 커버 사진 섹션 */
         .hero { height: 100vh; background-image: url('cover.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
 
-        section { min-height: 100vh; padding: 100px 10px 40px; } /* 상단바 여백 확보 */
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 35px 20px; border-radius: 25px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); }
-        h2 { color: #ffb5c5; text-align: center; font-size: 1.8rem; margin-bottom: 30px; letter-spacing: 2px; }
+        section { min-height: 100vh; padding: 100px 10px 40px; }
+        .container { 
+            max-width: 800px; margin: 0 auto; background: white; 
+            padding: 35px 20px; border-radius: 15px; 
+            border: 1px solid #ffeef1; 
+            box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); 
+        }
+        h2 { color: #ffb5c5; text-align: center; font-size: 1.8rem; margin-bottom: 30px; letter-spacing: 2px; font-weight: 800; }
 
-        .notice-card { background: #fffbfc; padding: 25px; border-radius: 20px; border: 1px dashed #ffcbd5; margin-bottom: 20px; }
+        /* 2. 노티스 카드: 점선 제거 & 라운드 조절 */
+        .notice-card { 
+            background: #fffbfc; 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+        }
         .notice-card h3 { 
             font-size: 1.05rem; color: #ff85a1; margin-top: 0; margin-bottom: 15px; 
-            display: inline-block; border-bottom: 2.5px solid #ffd9e2; padding-bottom: 2px;
+            display: inline-block; border-bottom: 2.5px solid #ffd9e2; padding-bottom: 2px; font-weight: 800;
         }
         .notice-card p { font-size: 0.88rem; line-height: 1.8; color: #9a8084; margin: 5px 0; }
         
-        .schedule-list { font-size: 0.82rem; line-height: 1.8; color: #9a8084; background: #fff; padding: 15px; border-radius: 15px; border: 1px solid #fff0f3; }
-        .order-highlight { background: #ffffff; padding: 15px; border-radius: 15px; text-align: center; font-weight: bold; color: #ff85a1; margin: 15px 0; font-size: 0.95rem; border: 1px solid #ffd9e2; }
+        .schedule-list { font-size: 0.82rem; line-height: 1.8; color: #9a8084; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #fff0f3; }
+        
+        /* 진행방식 이름 배경: 흰색 */
+        .order-highlight { 
+            background: #ffffff; padding: 15px; border-radius: 8px; 
+            text-align: center; font-weight: 800; color: #ff85a1; 
+            margin: 15px 0; font-size: 0.95rem; border: 1px solid #ffd9e2; 
+        }
 
-        /* 캘린더 스타일 */
+        /* 3. 캘린더 스타일 */
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; padding: 8px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; transition: 0.3s; }
+        .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; padding: 8px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; transition: 0.3s; text-transform: lowercase; }
         .arrow-btn:disabled { background: #fdf2f3; color: #ddd; }
         
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
-        .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.7rem; min-height: 85px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; position: relative; }
-        .day.head { background: #fff5f7; color: #ffb5c5; font-weight: bold; min-height: auto; padding: 12px 0; border: none; border-right: 1px solid #fff0f3; }
         
-        .bar { height: 16px; font-size: 0.52rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; z-index: 1; }
-        .bar.start { border-top-left-radius: 12px; border-bottom-left-radius: 12px; width: 98%; margin-left: 2%; }
-        .bar.end { border-top-right-radius: 12px; border-bottom-right-radius: 12px; width: 98%; margin-right: 2%; }
+        /* 날짜 칸: 숫자는 왼쪽 위 */
+        .day { padding: 8px; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 90px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: flex-start; position: relative; font-weight: 700; }
+        
+        /* 요일 헤더: 가운데 정렬 */
+        .day.head { 
+            background: #fff5f7; color: #ffb5c5; font-weight: 800; min-height: auto; 
+            padding: 12px 0; border: none; border-right: 1px solid #fff0f3; 
+            align-items: center; justify-content: center; font-size: 0.7rem; 
+            text-transform: lowercase;
+        }
+        
+        /* 일정 바 (bar) 라운드 조절 */
+        .bar { height: 16px; font-size: 0.52rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; z-index: 1; text-transform: none; }
+        .bar.start { border-top-left-radius: 8px; border-bottom-left-radius: 8px; width: 98%; margin-left: 2%; }
+        .bar.end { border-top-right-radius: 8px; border-bottom-right-radius: 8px; width: 98%; margin-right: 2%; }
         .bar.middle { width: 100%; border-radius: 0; }
-        .bar.single { border-radius: 12px; width: 94%; margin: 0 auto; }
+        .bar.single { border-radius: 8px; width: 94%; margin: 0 auto; }
 
         .bg-read { background-color: #ffe4e9; color: #ff85a1; }
         .bg-ex { background-color: #e8f4ff; color: #8ec3ff; }
         .bg-return { background-color: #f3efff; color: #a689ff; }
+
+        /* 4. 보드(게시판) 영역 */
+        .board-wrapper { 
+            width: 100%; height: 600px; border-radius: 12px; 
+            overflow: hidden; border: 1px solid #ffeef1; margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <nav class="top-nav" id="main-nav">
-        <a href="#" class="nav-link active">Home</a>
-        <a href="#notice" class="nav-link">Notice</a>
-        <a href="#calendar" class="nav-link">Calendar</a>
+        <a href="#" class="nav-link active">home</a>
+        <a href="#notice" class="nav-link">notice</a>
+        <a href="#calendar" class="nav-link">calendar</a>
+        <a href="#board" class="nav-link">board</a>
     </nav>
 
     <header class="hero" id="home"></header>
 
     <section id="notice">
         <div class="container">
-            <h2>Notice</h2>
+            <h2>notice</h2>
             <div class="notice-card"><h3>✉️ 목표</h3><p>약 30일 동안 한 권, 총 7권의 책을 함께 읽기</p></div>
             <div class="notice-card">
                 <h3>✉️ 진행 방식</h3>
@@ -104,9 +146,23 @@
         <div class="container" id="cal-container"></div>
     </section>
 
+    <section id="board">
+        <div class="container">
+            <h2>board</h2>
+            <div class="notice-card">
+                <h3>✉️ record our days</h3>
+                <p>지금 읽고 있는 책 사진이나 멤버들에게 하고 싶은 말을 남겨주세요!</p>
+                <div class="board-wrapper">
+                    <iframe src="https://padlet.com/embed/여기에_주소_입력" frameborder="0" width="100%" height="100%" style="background: #fff; border-radius: 12px;"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script>
-        // --- 캘린더 관련 변수 및 데이터 ---
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        // 1. 달력 데이터 설정
+        const monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+        const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
         const startDate = new Date(2026, 1, 1);
         let schedule = [];
         let tempDate = new Date(startDate);
@@ -127,20 +183,21 @@
         tempDate.setDate(tempDate.getDate() + 1);
         schedule.push({ start: new Date(tempDate), end: new Date(tempDate), label: `🏠 반환 및 마무리`, type: 'return' });
 
+        // 2. 달력 그리기 함수
         function renderCalendar(monthIdx) {
             const year = 2026;
             const container = document.getElementById('cal-container');
             if(!container) return;
             const firstDay = new Date(year, monthIdx, 1).getDay();
             const lastDate = new Date(year, monthIdx + 1, 0).getDate();
-            let html = `<h2>Calendar</h2>
+            let html = `<h2>calendar</h2>
                 <div class="cal-header">
-                    <button class="arrow-btn" ${monthIdx <= 1 ? 'disabled' : `onclick="renderCalendar(${monthIdx-1})"`}>Prev</button>
-                    <h3 style="margin:0; font-size: 1.2rem; color: #ffb5c5; font-weight: bold;">${monthNames[monthIdx]}</h3>
-                    <button class="arrow-btn" ${monthIdx >= 9 ? 'disabled' : `onclick="renderCalendar(${monthIdx+1})"`}>Next</button>
+                    <button class="arrow-btn" ${monthIdx <= 1 ? 'disabled' : `onclick="renderCalendar(${monthIdx-1})"`}>prev</button>
+                    <h3 style="margin:0; font-size: 1.2rem; color: #ffb5c5; font-weight: 800;">${monthNames[monthIdx]}</h3>
+                    <button class="arrow-btn" ${monthIdx >= 9 ? 'disabled' : `onclick="renderCalendar(${monthIdx+1})"`}>next</button>
                 </div>
-                <div class="grid">
-                    <div class="day head">S</div><div class="day head">M</div><div class="day head">T</div><div class="day head">W</div><div class="day head">T</div><div class="day head">F</div><div class="day head">S</div>`;
+                <div class="grid">`;
+            dayNames.forEach(day => { html += `<div class="day head">${day}</div>`; });
             for (let i = 0; i < firstDay; i++) html += `<div class="day"></div>`;
             for (let d = 1; d <= lastDate; d++) {
                 const cur = new Date(year, monthIdx, d);
@@ -149,15 +206,8 @@
                     if (cur >= item.start && cur <= item.end) {
                         const isStart = cur.getTime() === item.start.getTime();
                         const isEnd = cur.getTime() === item.end.getTime();
-                        const isSunday = cur.getDay() === 0;
-                        const isSaturday = cur.getDay() === 6;
-                        let shapeClass = "middle";
-                        if (isStart && isEnd) shapeClass = "single";
-                        else if (isStart) shapeClass = "start";
-                        else if (isEnd) shapeClass = "end";
-                        if (isSunday && !isStart) shapeClass = "middle"; 
-                        if (isSaturday && !isEnd) shapeClass = "middle";
-                        const labelText = (isStart || (isSunday && cur > item.start) || d === 1) ? item.label : '';
+                        let shapeClass = (isStart && isEnd) ? "single" : (isStart ? "start" : (isEnd ? "end" : "middle"));
+                        const labelText = (isStart || (cur.getDay() === 0 && cur > item.start) || d === 1) ? item.label : '';
                         html += `<div class="bar bg-${item.type} ${shapeClass}">${labelText}</div>`;
                     }
                 });
@@ -166,7 +216,7 @@
             container.innerHTML = html;
         }
 
-        // --- 스크롤에 따른 메뉴 활성화 스크립트 ---
+        // 3. 네비게이션 활성화 스크롤 로직
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('section, header');
 
@@ -174,18 +224,14 @@
             let current = "";
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                if (pageYOffset >= (sectionTop - 150)) {
                     current = section.getAttribute('id') || "home";
                 }
             });
-
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 const href = link.getAttribute('href').substring(1) || "home";
-                if (href === current) {
-                    link.classList.add('active');
-                }
+                if (href === current) link.classList.add('active');
             });
         });
 
