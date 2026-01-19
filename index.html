@@ -15,44 +15,46 @@
 
         .hero { height: 100vh; background-image: url('cover.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
         
-        section { min-height: 100vh; padding: 80px 15px 40px; display: flex; align-items: center; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 35px 20px; border-radius: 20px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); width: 100%; }
-        
-        /* 보드 전용: 옆으로 더 넓게 쓰도록 수정 */
-        .container.wide { max-width: 1100px; padding: 30px 15px; }
+        section { min-height: 100vh; padding: 80px 10px 40px; display: flex; align-items: center; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px 25px; border-radius: 25px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); width: 100%; }
+        .container.wide { max-width: 1200px; padding: 40px 15px; }
 
-        h2 { color: #ffb5c5; text-align: center; font-size: 1.8rem; margin-bottom: 30px; letter-spacing: 2px; font-weight: 800; }
+        h2 { color: #ffb5c5; text-align: center; font-size: 1.8rem; margin-bottom: 35px; letter-spacing: 2px; font-weight: 900; }
 
-        .notice-card { background: #fffbfc; padding: 25px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #fff0f3; }
-        .notice-card h3 { font-size: 1.05rem; color: #ff85a1; margin-top: 0; margin-bottom: 12px; display: inline-block; border-bottom: 2.5px solid #ffd9e2; padding-bottom: 4px; font-weight: 800; }
-        .notice-card p { font-size: 0.9rem; line-height: 1.7; color: #9a8084; margin: 8px 0; font-weight: 600; }
-        .order-highlight { background: #ffffff; padding: 15px; border-radius: 10px; text-align: center; font-weight: 800; color: #ff85a1; margin: 15px 0; font-size: 0.9rem; border: 1.5px dashed #ffd9e2; }
-        .schedule-list { font-size: 0.82rem; line-height: 2; color: #9a8084; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #fff0f3; margin-top: 10px; }
+        .notice-card { background: #fffbfc; padding: 25px; border-radius: 18px; margin-bottom: 20px; border: 1px solid #fff0f3; }
+        .notice-card h3 { font-size: 1.1rem; color: #ff85a1; margin-top: 0; margin-bottom: 12px; display: inline-block; border-bottom: 2.5px solid #ffd9e2; padding-bottom: 4px; font-weight: 800; }
+        .notice-card p { font-size: 0.92rem; line-height: 1.8; color: #9a8084; margin: 8px 0; font-weight: 600; }
+        .order-highlight { background: #ffffff; padding: 18px; border-radius: 12px; text-align: center; font-weight: 800; color: #ff85a1; margin: 15px 0; font-size: 0.95rem; border: 1.5px dashed #ffd9e2; letter-spacing: 1px; }
+        .schedule-list { font-size: 0.85rem; line-height: 2.2; color: #9a8084; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #fff0f3; margin-top: 10px; font-weight: 700; }
 
-        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .month-title { margin:0; font-size: 1.4rem; color: #ff85a1; font-weight: 900; }
-        .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .month-title { margin:0; font-size: 1.6rem; color: #ff85a1; font-weight: 900; }
+        .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
         
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
-        .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.7rem; min-height: 95px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; }
-        .day span { margin-bottom: 5px; font-weight: 700; }
-        .day.head { background: #fff5f7; color: #ffb5c5; font-weight: 800; min-height: auto; padding: 12px 0; }
+        .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 100px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; }
+        .day span { margin-bottom: 6px; font-weight: 700; }
+        .day.head { background: #fff5f7; color: #ffb5c5; font-weight: 900; min-height: auto; padding: 15px 0; }
         
-        .bar { height: 18px; font-size: 0.55rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; }
-        .bar.start { border-radius: 9px 0 0 9px; width: 92%; margin-left: 8%; }
-        .bar.end { border-radius: 0 9px 9px 0; width: 92%; margin-right: 8%; }
+        .bar { height: 20px; font-size: 0.58rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; }
+        .bar.start { border-radius: 10px 0 0 10px; width: 92%; margin-left: 8%; }
+        .bar.end { border-radius: 0 10px 10px 0; width: 92%; margin-right: 8%; }
         .bar.middle { width: 100%; border-radius: 0; }
-        .bar.single { border-radius: 9px; width: 85%; margin: 0 auto; }
+        .bar.single { border-radius: 10px; width: 88%; margin: 0 auto; }
+        
         .bg-read { background-color: #ffe4e9; color: #ff85a1; }
-        .bg-ex { background-color: #e8f4ff; color: #8ec3ff; }
+        /* ★ 교환 컬러 수정 (#dff4df 연두색) */
+        .bg-ex { background-color: #dff4df; color: #78a678; } 
         .bg-return { background-color: #f3efff; color: #a689ff; }
 
-        /* Board: 가로로 더 넓게 + 모바일 꽉 차게 */
-        .board-wrapper { width: 100%; height: 75vh; border-radius: 15px; overflow: hidden; border: 1px solid #ffeef1; margin-top: 10px; }
+        .board-wrapper { width: 100%; height: 75vh; border-radius: 18px; overflow: hidden; border: 1px solid #ffeef1; }
         
         @media (max-width: 600px) {
-            .container.wide { padding: 15px 5px; border-radius: 10px; } /* 모바일은 여백 거의 없음 */
-            .board-wrapper { height: 80vh; border-radius: 8px; }
+            section { padding: 60px 5px 30px; }
+            .container { padding: 30px 15px; border-radius: 15px; }
+            .container.wide { padding: 25px 0; border-radius: 0; border-left: none; border-right: none; }
+            .board-wrapper { height: 82vh; border-radius: 0; }
+            h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -69,14 +71,19 @@
     <section id="notice">
         <div class="container">
             <h2>notice</h2>
-            <div class="notice-card"><h3>✉️ 목표</h3><p>약 30일 동안 한 권, 총 7권의 책을 함께 읽고 기록합니다.</p></div>
             <div class="notice-card">
-                <h3>✉️ 진행 방식</h3>
-                <div class="order-highlight">미나 ➡ 민주 ➡ 우빈 ➡ 서현 ➡ 원 ➡ 지은 ➡ 예진</div>
-                <p style="text-align:center; font-size: 0.8rem;">독서 후 다음 순서의 친구에게 책과 편지를 전달합니다.</p>
+                <h3>✉️ 목표</h3>
+                <p>약 30일 동안 한 권, 총 7권의 책을 함께 읽기</p>
             </div>
             <div class="notice-card">
-                <h3>✉️ 상세 일정</h3>
+                <h3>✉️ 진행 방식</h3>
+                <p>1. 한 달 동안 책을 읽고 멋진 독후감을 쓴다 ! ! (자유롭게)</p>
+                <p>2. 다음 친구에게 책을 전달한다</p>
+                <p>3. 마지막 교환일에는 자신의 책과 함께 친구들이 남긴 독후감을 받으며 여정을 마무리 . . .</p>
+                <div class="order-highlight">미나 ➡ 민주 ➡ 우빈 ➡ 서현 ➡ 원 ➡ 지은 ➡ 예진</div>
+            </div>
+            <div class="notice-card">
+                <h3>✉️ 상세 일정 (📖 읽기 / 📦 교환)</h3>
                 <div class="schedule-list">
                     ➊ 📖 2/1 - 3/2 &nbsp; | &nbsp; 📦 3/3 - 3/9<br>
                     ➋ 📖 3/10 - 4/8 &nbsp; | &nbsp; 📦 4/9 - 4/15<br>
@@ -84,7 +91,7 @@
                     ➍ 📖 5/23 - 6/21 &nbsp; | &nbsp; 📦 6/22 - 6/28<br>
                     ➎ 📖 6/29 - 7/28 &nbsp; | &nbsp; 📦 7/29 - 8/4<br>
                     ➏ 📖 8/5 - 9/3 &nbsp; | &nbsp; 📦 9/4 - 9/10<br>
-                    ➐ 📖 9/11 - 10/10 &nbsp; | &nbsp; 🏠 10/11 내 책 받는 날
+                    ➐ 📖 9/11 - 10/10 &nbsp; | &nbsp; 🏠 10/11 마무리 (책 반환)
                 </div>
             </div>
         </div>
@@ -97,9 +104,9 @@
     <section id="board">
         <div class="container wide">
             <h2>board</h2>
-            <div style="text-align: center; margin-bottom: 15px;">
-                <p style="font-size: 0.85rem; font-weight: 800; color: #ff85a1; margin:0;">📸 share your moment</p>
-                <p style="font-size: 0.75rem; margin: 5px 0 0 0;">(+) 버튼을 눌러 사진과 코멘트를 남겨주세요!</p>
+            <div style="text-align: center; margin-bottom: 20px; padding: 0 15px;">
+                <p style="font-size: 0.9rem; font-weight: 800; color: #ff85a1; margin-bottom: 5px;">📸 share your moment</p>
+                <p style="font-size: 0.8rem; color: #aaa;">(+) 버튼을 눌러 사진과 독후감을 남겨주세요!</p>
             </div>
             <div class="board-wrapper">
                 <iframe src="https://padlet.com/embed/7hw5srufe93eqxm4" frameborder="0" width="100%" height="100%" allow="camera;microphone;geolocation"></iframe>
@@ -126,7 +133,7 @@
                 tempDate.setDate(tempDate.getDate() + 1);
             } else {
                 tempDate.setDate(tempDate.getDate() + 1);
-                schedule.push({ start: new Date(tempDate), end: new Date(tempDate), label: `내 책 받는 날`, type: 'return' });
+                schedule.push({ start: new Date(tempDate), end: new Date(tempDate), label: `🏠 반환`, type: 'return' });
             }
         }
 
