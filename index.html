@@ -7,17 +7,22 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <style>
         * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth; 
+            /* 자석처럼 붙는 snap 기능을 완전히 제거했습니다 */
+        }
         body { margin: 0; padding: 0; font-family: 'NanumSquare', sans-serif; background: #fffafb; color: #888; text-transform: lowercase; }
         
         .top-nav { position: fixed; top: 0; width: 100%; height: 55px; background: #ffcbd5; display: flex; justify-content: center; align-items: center; gap: 10px; z-index: 1000; box-shadow: 0 1px 10px rgba(255, 180, 190, 0.2); }
         .top-nav a { text-decoration: none; color: #ffffff; font-weight: 800; font-size: 0.8rem; padding: 6px 15px; border-radius: 20px; transition: 0.3s; }
         .top-nav a.active { background: #ffffff; color: #ff85a1; box-shadow: 0 2px 8px rgba(255, 133, 161, 0.2); }
 
+        /* 홈 화면: 배경 이미지가 가득 차게 설정 */
         .hero { height: 100vh; background-image: url('cover.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
         
-        section { min-height: 100vh; padding: 80px 15px 60px; display: flex; align-items: center; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px 25px; border-radius: 25px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); width: 100%; }
+        section { min-height: 100vh; padding: 100px 15px 60px; display: flex; align-items: center; }
+        
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px 30px; border-radius: 25px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); width: 100%; }
         .container.wide { max-width: 1200px; padding: 40px 15px; }
 
         h2 { color: #ffb5c5; text-align: center; font-size: 1.8rem; margin-bottom: 35px; letter-spacing: 2px; font-weight: 900; }
@@ -26,7 +31,6 @@
         .notice-card h3 { font-size: 1.1rem; color: #ff85a1; margin-top: 0; margin-bottom: 12px; display: inline-block; padding-bottom: 4px; font-weight: 800; }
         .notice-card p { font-size: 0.92rem; line-height: 1.8; color: #9a8084; margin: 8px 0; font-weight: 600; }
 
-        /* 이름 순서: 배경 흰색 + 테두리 연회색 + 글씨 회색 */
         .order-highlight { background: #ffffff; padding: 18px; border-radius: 12px; text-align: center; font-weight: 800; color: #bbb; margin: 15px 0; font-size: 0.95rem; border: 1.5px dashed #eee; letter-spacing: 1px; }
         
         .schedule-list { font-size: 0.85rem; line-height: 2.2; color: #9a8084; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #fff0f3; margin-top: 10px; font-weight: 700; }
@@ -35,14 +39,10 @@
         .month-title { margin:0; font-size: 1.6rem; color: #ff85a1; font-weight: 900; }
         .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
         
-        /* 캘린더 그리드: 6줄(행) 고정 */
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
-        
         .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 95px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; }
         .day span { margin-bottom: 6px; font-weight: 700; }
-
-        /* 요일 부분: 연노랑 (#fffdec) */
-        .day.head { background: #fffdec; color: #d6cc8d; font-weight: 900; min-height: auto; padding: 15px 0; border-bottom: 1px solid #f9f3d5; }
+        .day.head { background: #fffdec; color: #ccb0b5; font-weight: 900; min-height: auto; padding: 15px 0; border-bottom: 1px solid #f9f3d5; }
         
         .bar { height: 20px; font-size: 0.58rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; }
         .bar.start { border-radius: 10px 0 0 10px; width: 92%; margin-left: 8%; }
@@ -52,14 +52,14 @@
         
         .bg-read { background-color: #fff0f3; color: #ffb5c5; }
         .bg-ex { background-color: #f2faf2; color: #a8c4a8; }
-        .bg-return { background-color: #f8f6ff; color: #c0b0ff; }
+        .bg-return { background-color: #e3f2fd; color: #90caf9; }
 
         .board-wrapper { width: 100%; height: 75vh; border-radius: 18px; overflow: hidden; border: 1px solid #ffeef1; }
         
         @media (max-width: 600px) {
-            section { padding: 60px 10px 40px; }
-            .container.wide { padding: 25px 5px; border-radius: 0; }
-            .day { min-height: 80px; }
+            section { padding: 80px 5px 40px; } 
+            .container { padding: 25px 15px; border-radius: 15px; width: 96%; }
+            .day { min-height: 85px; }
         }
     </style>
 </head>
@@ -147,8 +147,6 @@
             const container = document.getElementById('cal-container');
             const firstDay = new Date(year, monthIdx, 1).getDay();
             const lastDate = new Date(year, monthIdx + 1, 0).getDate();
-            
-            // 총 칸 수 계산 (6주 고정 = 42칸)
             const totalSlots = 42; 
             
             let html = `
@@ -159,13 +157,8 @@
                     <button class="arrow-btn" ${monthIdx >= 10 ? 'disabled style="opacity:0.2"' : `onclick="renderCalendar(${monthIdx+1})"`}>▶</button>
                 </div>
                 <div class="grid">`;
-            
             dayNames.forEach(day => { html += `<div class="day head">${day}</div>`; });
-            
-            // 빈 칸 (전달)
             for (let i = 0; i < firstDay; i++) html += `<div class="day"></div>`;
-            
-            // 날짜 칸
             for (let d = 1; d <= lastDate; d++) {
                 const cur = new Date(year, monthIdx, d);
                 html += `<div class="day"><span>${d}</span>`;
@@ -183,11 +176,8 @@
                 });
                 html += `</div>`;
             }
-            
-            // 남은 칸 채우기 (무조건 6주차까지 보이게)
             const remainingSlots = totalSlots - (firstDay + lastDate);
             for (let i = 0; i < remainingSlots; i++) html += `<div class="day"></div>`;
-            
             html += `</div>`;
             container.innerHTML = html;
         }
@@ -197,7 +187,7 @@
             const navLinks = document.querySelectorAll('.nav-link');
             let current = "";
             sections.forEach(section => {
-                if (pageYOffset >= (section.offsetTop - 150)) {
+                if (window.pageYOffset >= (section.offsetTop - 150)) {
                     current = section.getAttribute('id') || "home";
                 }
             });
