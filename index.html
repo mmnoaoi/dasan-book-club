@@ -8,7 +8,6 @@
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; scroll-behavior: smooth; background: #fafafa; color: #888; }
 
-        /* 메뉴바 */
         .top-nav {
             position: fixed; top: 0; width: 100%; height: 55px;
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
@@ -17,111 +16,132 @@
         }
         .top-nav a { text-decoration: none; color: #999; font-weight: bold; font-size: 0.8rem; padding: 8px 12px; border-radius: 20px; }
 
-        /* 메인 이미지 공간 */
         .hero { height: 100vh; background-image: url('cover.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
 
-        /* 컨텐츠 박스 */
-        section { min-height: 100vh; padding: 80px 15px 40px; }
-        .container { max-width: 700px; margin: 0 auto; background: white; padding: 30px; border-radius: 25px; border: 1px solid #f0f0f0; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        section { min-height: 100vh; padding: 80px 10px 40px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 25px 15px; border-radius: 25px; border: 1px solid #f0f0f0; }
         h2 { color: #ffccd5; text-align: center; font-size: 1.8rem; margin-bottom: 25px; }
 
-        /* 캘린더 핵심: 안 보이는 달은 숨기기 */
-        .month-section { display: none; } 
-        .month-section.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* 캘린더 레이아웃 */
+        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 10px; }
+        .arrow-btn { cursor: pointer; border: none; background: #ffccd5; color: white; padding: 8px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; }
+        .arrow-btn:disabled { background: #eee; }
 
-        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 10px; background: #fffafb; border-radius: 15px; }
-        .arrow-btn { cursor: pointer; border: none; background: #ffccd5; color: white; padding: 8px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; transition: 0.2s; }
-        .arrow-btn:hover { background: #ffb3c1; }
-        .arrow-btn:disabled { background: #eee; cursor: default; }
-
-        .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
-        .day { padding: 10px 2px; border: 1px solid #fdfdfd; border-radius: 8px; font-size: 0.75rem; min-height: 65px; color: #aaa; background: #fff; display: flex; flex-direction: column; align-items: center; }
-        .day.head { background: #fff0f3; color: #ff8fa3; font-weight: bold; min-height: auto; padding: 10px 0; border: none; }
+        .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #eee; border-left: 1px solid #eee; }
+        .day { 
+            padding: 5px; border-right: 1px solid #eee; border-bottom: 1px solid #eee; 
+            font-size: 0.75rem; min-height: 85px; color: #aaa; background: #fff; 
+            display: flex; flex-direction: column; position: relative;
+        }
+        .day.head { background: #fff0f3; color: #ff8fa3; font-weight: bold; min-height: auto; padding: 10px 0; border: none; border-right: 1px solid #eee; border-top: 1px solid #eee;}
         
-        /* 라벨 스타일 */
-        .event { font-weight: bold; font-size: 0.55rem; margin-top: 5px; padding: 2px 4px; border-radius: 4px; width: 90%; }
-        .reading { background: #fff0f3; color: #ff8fa3; }
-        .exchange { background: #e3f2fd; color: #42a5f5; }
+        /* 띠 형태의 하이라이트 스타일 */
+        .bar {
+            height: 18px; font-size: 0.55rem; color: white; font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 2px; border-radius: 0; width: 100%;
+        }
+        /* 띠의 시작과 끝을 둥글게 */
+        .bar.start { border-top-left-radius: 4px; border-bottom-left-radius: 4px; margin-left: 2px; width: calc(100% - 2px); }
+        .bar.end { border-top-right-radius: 4px; border-bottom-right-radius: 4px; margin-right: 2px; width: calc(100% - 2px); }
+        .bar.single { border-radius: 4px; margin: 0 2px; width: calc(100% - 4px); }
+
+        .bg-read { background-color: #ffccd5; } /* 독서 띠 색상 */
+        .bg-ex { background-color: #a2d2ff; }   /* 교환 띠 색상 */
+        .bg-return { background-color: #bde0fe; color: #555; } /* 반납일 색상 */
+
+        @media (max-width: 480px) {
+            .day { min-height: 70px; font-size: 0.7rem; }
+            .bar { font-size: 0.5rem; height: 15px; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="top-nav">
-        <a href="#">Home</a>
-        <a href="#notice">Notice</a>
-        <a href="#calendar">Calendar</a>
-    </nav>
-
+    <nav class="top-nav"><a href="#">Home</a><a href="#notice">Notice</a><a href="#calendar">Calendar</a></nav>
     <header class="hero"></header>
 
     <section id="notice">
         <div class="container">
             <h2>Notice</h2>
-            <div style="background: #fff8f9; padding: 25px; border-radius: 20px; border: 1px dashed #ffccd5; text-align: center;">
-                <p style="font-size: 0.85rem; color: #ffb3c1; margin:0;">[ Schedule Cycle ]</p>
-                <span style="font-size: 1.2rem; font-weight: bold; color: #ff8fa3; display: block; margin: 10px 0;">30 Days Reading → 7 Days Exchange</span>
-            </div>
-            <div style="margin-top: 30px; line-height: 1.8;">
-                <h3 style="color: #ffccd5;">Presentation Order</h3>
-                <p style="color: #999;">Ji-eun → Min-su → Seo-yeon → Do-yun → Ji-hu</p>
+            <div style="background: #fff8f9; padding: 20px; border-radius: 20px; border: 1px dashed #ffccd5; text-align: center; line-height: 1.6;">
+                <b style="color: #ff8fa3;">7 Cycles of Reading & Exchange</b><br>
+                <small style="color: #bbb;">30 Days Reading + 7 Days Exchange</small>
             </div>
         </div>
     </section>
 
     <section id="calendar">
-        <div class="container" id="cal-container">
-            <h2>Calendar</h2>
-            </div>
+        <div class="container" id="cal-container"></div>
     </section>
 
     <script>
-        // 2026년 2월 1일부터 시작하는 사이클 데이터
-        const startDate = new Date(2026, 1, 1); // 2월 1일
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
-        let currentViewMonth = 1; // 2월부터 시작 (인덱스 1)
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const startDate = new Date(2026, 1, 1); // 2026년 2월 1일 시작
+        
+        // 7번의 사이클 생성
+        let schedule = [];
+        let tempDate = new Date(startDate);
+
+        for (let i = 1; i <= 7; i++) {
+            // 독서 기간 (30일)
+            let rStart = new Date(tempDate);
+            tempDate.setDate(tempDate.getDate() + 29);
+            let rEnd = new Date(tempDate);
+            schedule.push({ start: rStart, end: rEnd, label: `${i}회 독서`, type: 'read' });
+            
+            // 교환 기간 (7일)
+            tempDate.setDate(tempDate.getDate() + 1);
+            let eStart = new Date(tempDate);
+            tempDate.setDate(tempDate.getDate() + 6);
+            let eEnd = new Date(tempDate);
+            schedule.push({ start: eStart, end: eEnd, label: `${i}회 교환`, type: 'ex' });
+            
+            tempDate.setDate(tempDate.getDate() + 1);
+        }
+        // 마지막 날: 내 책 돌려 받는 날 (교환 종료 다음 날)
+        let returnDate = new Date(schedule[schedule.length - 1].end);
+        returnDate.setDate(returnDate.getDate() + 1);
+        schedule.push({ start: returnDate, end: returnDate, label: "내 책 받는 날!", type: 'return' });
 
         function renderCalendar(monthIdx) {
             const year = 2026;
             const firstDay = new Date(year, monthIdx, 1).getDay();
             const lastDate = new Date(year, monthIdx + 1, 0).getDate();
             
-            let html = `
+            let html = `<h2>Calendar</h2>
                 <div class="cal-header">
-                    <button class="arrow-btn" ${monthIdx === 1 ? 'disabled' : `onclick="renderCalendar(${monthIdx-1})"`}>Prev</button>
-                    <h3 style="margin:0; font-size: 1.2rem; color: #ff8fa3;">${monthNames[monthIdx]} 2026</h3>
-                    <button class="arrow-btn" ${monthIdx === 7 ? 'disabled' : `onclick="renderCalendar(${monthIdx+1})"`}>Next</button>
+                    <button class="arrow-btn" ${monthIdx <= 1 ? 'disabled' : `onclick="renderCalendar(${monthIdx-1})"`}>Prev</button>
+                    <h3 style="margin:0; font-size: 1.2rem; color: #ff8fa3;">${monthNames[monthIdx]} ${year}</h3>
+                    <button class="arrow-btn" ${monthIdx >= 10 ? 'disabled' : `onclick="renderCalendar(${monthIdx+1})"`}>Next</button>
                 </div>
                 <div class="grid">
                     <div class="day head">Sun</div><div class="day head">Mon</div><div class="day head">Tue</div><div class="day head">Wed</div><div class="day head">Thu</div><div class="day head">Fri</div><div class="day head">Sat</div>`;
             
-            // 빈 칸 채우기
             for (let i = 0; i < firstDay; i++) html += `<div class="day"></div>`;
             
-            // 날짜 채우기
             for (let d = 1; d <= lastDate; d++) {
-                const today = new Date(year, monthIdx, d);
-                const diffTime = today - startDate;
-                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                const cur = new Date(year, monthIdx, d);
+                html += `<div class="day">${d}`;
                 
-                let eventHtml = '';
-                if (diffDays >= 0) {
-                    const cycleDay = diffDays % 37;
-                    if (cycleDay < 30) {
-                        eventHtml = `<div class="event reading">Reading</div>`;
-                    } else {
-                        eventHtml = `<div class="event exchange">Exchange</div>`;
+                schedule.forEach(item => {
+                    if (cur >= item.start && cur <= item.end) {
+                        let isStart = cur.getTime() === item.start.getTime() || cur.getDay() === 0;
+                        let isEnd = cur.getTime() === item.end.getTime() || cur.getDay() === 6;
+                        let className = `bar bg-${item.type}`;
+                        if (isStart && isEnd) className += " single";
+                        else if (isStart) className += " start";
+                        else if (isEnd) className += " end";
+                        
+                        html += `<div class="${className}">${(isStart || d === 1) ? item.label : ''}</div>`;
                     }
-                }
-                html += `<div class="day">${d}${eventHtml}</div>`;
+                });
+                html += `</div>`;
             }
-            
-            html += `</div>`;
-            document.getElementById('cal-container').innerHTML = `<h2>Calendar</h2>` + html;
+            document.getElementById('cal-container').innerHTML = html;
         }
 
-        // 초기 실행
-        renderCalendar(1);
+        renderCalendar(1); // 2월부터 시작
     </script>
 </body>
 </html>
