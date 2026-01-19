@@ -17,23 +17,23 @@
         .hero { height: 100vh; background-image: url('cover.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
         
         section { min-height: 100vh; padding: 100px 15px 60px; display: flex; align-items: center; }
-        
         .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px 30px; border-radius: 25px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); width: 100%; }
         .container.wide { max-width: 1200px; padding: 40px 15px; }
 
-        h2 { color: #ffb5c5; text-align: center; font-size: 1.8rem; margin-bottom: 35px; letter-spacing: 2px; font-weight: 900; }
+        /* 제목 스타일 업그레이드 (스티커 느낌) */
+        h2 { display: table; margin: 0 auto 45px; background: #ffeef1; color: #ff85a1; padding: 5px 25px; border-radius: 30px; font-size: 1.5rem; letter-spacing: 2px; font-weight: 900; }
 
         .notice-card { background: #fffbfc; padding: 25px; border-radius: 18px; margin-bottom: 20px; border: 1px solid #fff0f3; }
         .notice-card h3 { font-size: 1.1rem; color: #ff85a1; margin-top: 0; margin-bottom: 12px; display: inline-block; padding-bottom: 4px; font-weight: 800; }
         .notice-card p { font-size: 0.92rem; line-height: 1.8; color: #9a8084; margin: 8px 0; font-weight: 600; }
 
-        /* 이름 순서 박스: 연한 핑크색 테두리로 변경 */
         .order-highlight { background: #ffffff; padding: 18px; border-radius: 12px; text-align: center; font-weight: 800; color: #bbb; margin: 15px 0; font-size: 0.95rem; border: 1.5px solid #ffeef1; letter-spacing: 1px; }
         
         .schedule-list { font-size: 0.85rem; line-height: 2.2; color: #9a8084; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #fff0f3; margin-top: 10px; font-weight: 700; }
 
-        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .month-title { margin:0; font-size: 1.6rem; color: #ff85a1; font-weight: 900; }
+        /* 캘린더 헤더 부분 간격 및 폰트 조정 */
+        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 0 10px; }
+        .month-title { margin:0; font-size: 1.8rem; color: #ffb5c5; font-weight: 900; font-family: 'NanumSquare', sans-serif; }
         .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
         
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
@@ -117,8 +117,11 @@
     </section>
 
     <script>
-        const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        // 월 표시를 숫자로 변경 (2月 스타일)
+        const monthNames = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
         const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+        
+        // 이하 자바스크립트 로직 동일
         const startDate = new Date(2026, 1, 1);
         let schedule = [];
         let tempDate = new Date(startDate);
