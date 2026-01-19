@@ -26,23 +26,23 @@
         .notice-card h3 { font-size: 1.1rem; color: #ff85a1; margin-top: 0; margin-bottom: 12px; display: inline-block; padding-bottom: 4px; font-weight: 800; }
         .notice-card p { font-size: 0.92rem; line-height: 1.8; color: #9a8084; margin: 8px 0; font-weight: 600; }
 
-        .order-highlight { background: #ffffff; padding: 18px; border-radius: 12px; text-align: center; font-weight: 800; color: #8bc34a; margin: 15px 0; font-size: 0.95rem; border: 1.5px dashed #dff4df; letter-spacing: 1px; }
+        /* 이름 순서: 배경 흰색 + 테두리 연회색 + 글씨 회색 */
+        .order-highlight { background: #ffffff; padding: 18px; border-radius: 12px; text-align: center; font-weight: 800; color: #bbb; margin: 15px 0; font-size: 0.95rem; border: 1.5px dashed #eee; letter-spacing: 1px; }
         
         .schedule-list { font-size: 0.85rem; line-height: 2.2; color: #9a8084; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #fff0f3; margin-top: 10px; font-weight: 700; }
 
-        /* 캘린더 헤더 */
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
         .month-title { margin:0; font-size: 1.6rem; color: #ff85a1; font-weight: 900; }
         .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
         
-        /* 캘린더 그리드: 최소 높이 설정으로 크기 고정 */
-        .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; min-height: 580px; }
+        /* 캘린더 그리드: 6줄(행) 고정 */
+        .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
         
         .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 95px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; }
         .day span { margin-bottom: 6px; font-weight: 700; }
 
-        /* 요일 부분: 연한 회색 (#f8f8f8) */
-        .day.head { background: #f8f8f8; color: #bbb; font-weight: 900; min-height: auto; padding: 15px 0; border-bottom: 1px solid #eee; }
+        /* 요일 부분: 연노랑 (#fffdec) */
+        .day.head { background: #fffdec; color: #d6cc8d; font-weight: 900; min-height: auto; padding: 15px 0; border-bottom: 1px solid #f9f3d5; }
         
         .bar { height: 20px; font-size: 0.58rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; }
         .bar.start { border-radius: 10px 0 0 10px; width: 92%; margin-left: 8%; }
@@ -59,8 +59,6 @@
         @media (max-width: 600px) {
             section { padding: 60px 10px 40px; }
             .container.wide { padding: 25px 5px; border-radius: 0; }
-            .board-wrapper { height: 80vh; }
-            .grid { min-height: 500px; } /* 모바일용 높이 고정 */
             .day { min-height: 80px; }
         }
     </style>
@@ -86,7 +84,7 @@
                 <h3>🤍 진행 방식</h3>
                 <p>1. 한 달 동안 책을 읽고 멋진 독후감을 쓴다 ! ! (자유롭게)</p>
                 <p>2. 다음 친구에게 책을 전달한다</p>
-                <p>3. 마지막 교환일에는 자신의 책과 독후감을 받으며 마무리 . . .</p>
+                <p>3. 마지막 날 자신의 책과 독후감을 받으며 마무리 . . .</p>
                 <div class="order-highlight">미나 ➡ 민주 ➡ 우빈 ➡ 서현 ➡ 원 ➡ 지은 ➡ 예진</div>
             </div>
             <div class="notice-card">
@@ -149,6 +147,10 @@
             const container = document.getElementById('cal-container');
             const firstDay = new Date(year, monthIdx, 1).getDay();
             const lastDate = new Date(year, monthIdx + 1, 0).getDate();
+            
+            // 총 칸 수 계산 (6주 고정 = 42칸)
+            const totalSlots = 42; 
+            
             let html = `
                 <h2>calendar</h2>
                 <div class="cal-header">
@@ -157,8 +159,13 @@
                     <button class="arrow-btn" ${monthIdx >= 10 ? 'disabled style="opacity:0.2"' : `onclick="renderCalendar(${monthIdx+1})"`}>▶</button>
                 </div>
                 <div class="grid">`;
+            
             dayNames.forEach(day => { html += `<div class="day head">${day}</div>`; });
+            
+            // 빈 칸 (전달)
             for (let i = 0; i < firstDay; i++) html += `<div class="day"></div>`;
+            
+            // 날짜 칸
             for (let d = 1; d <= lastDate; d++) {
                 const cur = new Date(year, monthIdx, d);
                 html += `<div class="day"><span>${d}</span>`;
@@ -176,6 +183,12 @@
                 });
                 html += `</div>`;
             }
+            
+            // 남은 칸 채우기 (무조건 6주차까지 보이게)
+            const remainingSlots = totalSlots - (firstDay + lastDate);
+            for (let i = 0; i < remainingSlots; i++) html += `<div class="day"></div>`;
+            
+            html += `</div>`;
             container.innerHTML = html;
         }
 
