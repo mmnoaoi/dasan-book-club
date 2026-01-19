@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리들의 독서 모임</title>
+    <style>
+        /* 기본 디자인 */
+        body { font-family: 'Pretendard', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f9f9f9; }
+        header { background: #4a6741; color: white; padding: 2rem; text-align: center; }
+        section { max-width: 800px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2 { border-bottom: 2px solid #4a6741; padding-bottom: 0.5rem; color: #4a6741; }
+        
+        /* 멤버 리스트 */
+        .member-list { display: flex; gap: 10px; flex-wrap: wrap; }
+        .member-card { background: #eee; padding: 10px 20px; border-radius: 20px; font-size: 0.9rem; }
+
+        /* 규칙/순서 */
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+
+        /* 일정 (캘린더 느낌) */
+        .calendar-view { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; background: #ddd; padding: 5px; border-radius: 5px; }
+        .day { background: white; height: 80px; padding: 5px; font-size: 0.8rem; position: relative; }
+        .day.header { background: #eee; height: auto; text-align: center; font-weight: bold; }
+        .event { background: #e8f5e9; color: #2e7d32; padding: 2px 5px; border-radius: 3px; margin-top: 5px; font-size: 0.7rem; border-left: 3px solid #4a6741; }
+
+        footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: #888; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📚 사각사각 독서 모임</h1>
+        <p>책 읽는 소리가 머무는 공간</p>
+    </header>
+
+    <section id="intro">
+        <h2>모임 소개</h2>
+        <p>혼자 읽기 어려운 책을 함께 읽으며 생각을 나누는 따뜻한 커뮤니티입니다.</p>
+    </section>
+
+    <section id="members">
+        <h2>함께하는 멤버</h2>
+        <div class="member-list">
+            <div class="member-card">지은(방장)</div>
+            <div class="member-card">민수</div>
+            <div class="member-card">서연</div>
+            <div class="member-card">도윤</div>
+            <div class="member-card">지후</div>
+        </div>
+    </section>
+
+    <section id="rules">
+        <h2>운영 규칙 및 순서</h2>
+        <h3>발제 순서</h3>
+        <p>지은 → 민수 → 서연 → 도윤 → 지후 순으로 책을 선정하고 발제를 준비합니다.</p>
+        <h3>우리의 약속</h3>
+        <ul>
+            <li>매월 정해진 분량은 꼭 읽어오기</li>
+            <li>상대방의 의견을 끝까지 경청하기</li>
+            <li>모임 3일 전까지 생각할 거리(질문) 공유하기</li>
+        </ul>
+    </section>
+
+    <section id="schedule">
+        <h2>활동 일정 (1월)</h2>
+        <div class="calendar-view">
+            <div class="day header">일</div><div class="day header">월</div><div class="day header">화</div>
+            <div class="day header">수</div><div class="day header">목</div><div class="day header">금</div><div class="day header">토</div>
+            
+            <div class="day"></div><div class="day"></div><div class="day"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div>
+            <div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div>
+            <div class="day">10<div class="event">정기 모임 (오후 2시)</div></div>
+            <div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div>
+            <div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div>
+            <div class="day">24<div class="event">온라인 번개</div></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 사각사각 독서 모임. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
