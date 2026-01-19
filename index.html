@@ -7,39 +7,77 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <style>
         * { box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; font-family: 'NanumSquare', sans-serif; scroll-behavior: smooth; background: #fffafb; color: #888; text-transform: lowercase; }
+        body, html { 
+            margin: 0; padding: 0; 
+            font-family: 'NanumSquare', sans-serif; 
+            scroll-behavior: smooth; 
+            background: #fffafb; 
+            color: #888; 
+            text-transform: lowercase; 
+        }
         
-        .top-nav { position: fixed; top: 0; width: 100%; height: 55px; background: #ffcbd5; display: flex; justify-content: center; align-items: center; gap: 10px; z-index: 1000; box-shadow: 0 1px 10px rgba(255, 180, 190, 0.2); }
-        .top-nav a { text-decoration: none; color: #ffffff; font-weight: 800; font-size: 0.8rem; padding: 6px 15px; border-radius: 20px; transition: 0.3s; }
-        .top-nav a.active { background: #ffffff; color: #ff85a1; box-shadow: 0 2px 8px rgba(255, 133, 161, 0.2); }
+        .top-nav { 
+            position: fixed; top: 0; width: 100%; height: 55px; 
+            background: #ffcbd5; 
+            display: flex; justify-content: center; align-items: center; gap: 10px; z-index: 1000; 
+            box-shadow: 0 1px 10px rgba(255, 180, 190, 0.2); 
+        }
+        .top-nav a { 
+            text-decoration: none; color: #ffffff; font-weight: 800; font-size: 0.8rem; 
+            padding: 6px 15px; border-radius: 20px; transition: 0.3s;
+        }
+        .top-nav a.active {
+            background: #ffffff; 
+            color: #ff85a1; 
+            box-shadow: 0 2px 8px rgba(255, 133, 161, 0.2);
+        }
 
         .hero { height: 100vh; background-image: url('cover.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
         section { min-height: 100vh; padding: 100px 10px 40px; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 35px 20px; border-radius: 15px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); }
+        .container { 
+            max-width: 800px; margin: 0 auto; background: white; 
+            padding: 35px 20px; border-radius: 15px; 
+            border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); 
+        }
         h2 { color: #ffb5c5; text-align: center; font-size: 1.8rem; margin-bottom: 30px; letter-spacing: 2px; font-weight: 800; }
 
         .notice-card { background: #fffbfc; padding: 25px; border-radius: 12px; border: none; margin-bottom: 20px; }
-        .notice-card h3 { font-size: 1.05rem; color: #ff85a1; margin-top: 0; margin-bottom: 15px; display: inline-block; border-bottom: 2.5px solid #ffd9e2; padding-bottom: 2px; font-weight: 800; }
+        .notice-card h3 { 
+            font-size: 1.05rem; color: #ff85a1; margin-top: 0; margin-bottom: 15px; 
+            display: inline-block; border-bottom: 2.5px solid #ffd9e2; padding-bottom: 2px; font-weight: 800;
+        }
         .notice-card p { font-size: 0.88rem; line-height: 1.8; color: #9a8084; margin: 5px 0; }
         
-        .order-highlight { background: #ffffff; padding: 15px; border-radius: 8px; text-align: center; font-weight: 800; color: #ff85a1; margin: 15px 0; font-size: 0.95rem; border: 1px solid #ffd9e2; }
+        .schedule-list { font-size: 0.82rem; line-height: 1.8; color: #9a8084; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #fff0f3; }
+        .order-highlight { 
+            background: #ffffff; padding: 15px; border-radius: 8px; 
+            text-align: center; font-weight: 800; color: #ff85a1; 
+            margin: 15px 0; font-size: 0.95rem; border: 1px solid #ffd9e2; 
+        }
 
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; padding: 8px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; transition: 0.3s; text-transform: lowercase; }
+        .arrow-btn:disabled { background: #fdf2f3; color: #ddd; }
+        
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
         .day { padding: 8px; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 90px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: flex-start; position: relative; font-weight: 700; }
-        .day.head { background: #fff5f7; color: #ffb5c5; font-weight: 800; min-height: auto; padding: 12px 0; border: none; border-right: 1px solid #fff0f3; align-items: center; justify-content: center; font-size: 0.7rem; text-transform: lowercase; }
+        .day.head { 
+            background: #fff5f7; color: #ffb5c5; font-weight: 800; min-height: auto; 
+            padding: 12px 0; border: none; border-right: 1px solid #fff0f3; 
+            align-items: center; justify-content: center; font-size: 0.7rem;
+        }
         
-        .bar { height: 16px; font-size: 0.52rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; z-index: 1; text-transform: none; }
+        .bar { height: 16px; font-size: 0.52rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; z-index: 1; }
         .bar.start { border-top-left-radius: 8px; border-bottom-left-radius: 8px; width: 98%; margin-left: 2%; }
         .bar.end { border-top-right-radius: 8px; border-bottom-right-radius: 8px; width: 98%; margin-right: 2%; }
         .bar.middle { width: 100%; border-radius: 0; }
         .bar.single { border-radius: 8px; width: 94%; margin: 0 auto; }
+
         .bg-read { background-color: #ffe4e9; color: #ff85a1; }
         .bg-ex { background-color: #e8f4ff; color: #8ec3ff; }
         .bg-return { background-color: #f3efff; color: #a689ff; }
 
-        .board-wrapper { width: 100%; height: 600px; border-radius: 12px; overflow: hidden; border: 1px solid #ffeef1; margin-top: 20px; }
+        .board-wrapper { width: 100%; height: 650px; border-radius: 12px; overflow: hidden; border: 1px solid #ffeef1; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -60,7 +98,18 @@
                 <h3>✉️ 진행 방식</h3>
                 <div class="order-highlight">미나 ➡ 민주 ➡ 우빈 ➡ 서현 ➡ 원 ➡ 지은 ➡ 예진</div>
             </div>
-            <div class="notice-card"><h3>✉️ 준비 사항</h3><p>- 첫 달에 읽을 책 1권과 독후감 편지지 7장</p></div>
+            <div class="notice-card">
+                <h3>✉️ 일정</h3>
+                <div class="schedule-list">
+                    ➊ 📖 2/1 - 3/2 &nbsp; 📦 3/3 - 3/9<br>
+                    ➋ 📖 3/10 - 4/8 &nbsp; 📦 4/9 - 4/15<br>
+                    ➌ 📖 4/16 - 5/15 &nbsp; 📦 5/16 - 5/22<br>
+                    ➍ 📖 5/23 - 6/21 &nbsp; 📦 6/22 - 6/28<br>
+                    ➎ 📖 6/29 - 7/28 &nbsp; 📦 7/29 - 8/4<br>
+                    ➏ 📖 8/5 - 9/3 &nbsp; 📦 9/4 - 9/10<br>
+                    ➐ 📖 9/11 - 10/10 마무리 (책 반환)
+                </div>
+            </div>
         </div>
     </section>
 
@@ -71,11 +120,14 @@
     <section id="board">
         <div class="container">
             <h2>board</h2>
-            <div class="notice-card">
-                <h3>✉️ record our days</h3>
-                <p>갤러리 사진을 올리거나 멤버들에게 코멘트를 남겨주세요!</p>
+            <div class="notice-card" style="text-align: center;">
+                <h3 style="display: block; border: none; margin-bottom: 5px;">📸 share your moment</h3>
+                <p style="margin-bottom: 20px;">게시판 오른쪽 하단 <b>(+) 버튼</b>을 눌러 <br>책 사진이나 코멘트를 남겨주세요!</p>
                 <div class="board-wrapper">
-                    <iframe src="https://padlet.com/embed/minarimon/padlet-7hw5srufe93eqxm4" frameborder="0" width="100%" height="100%" style="background: #fff; border-radius: 12px;"></iframe>
+                    <iframe src="https://padlet.com/embed/minarimon/padlet-7hw5srufe93eqxm4" 
+                            frameborder="0" width="100%" height="100%" 
+                            style="background: #fff; border-radius: 12px;"
+                            allow="camera;microphone;geolocation"></iframe>
                 </div>
             </div>
         </div>
@@ -91,11 +143,11 @@
         for (let i = 1; i <= 6; i++) {
             let rStart = new Date(tempDate);
             tempDate.setDate(tempDate.getDate() + 29);
-            schedule.push({ start: rStart, end: new Date(tempDate), label: `➊➋➌➍➎➏` + ` 독서`[i-1], type: 'read' });
+            schedule.push({ start: rStart, end: new Date(tempDate), label: `➊➋➌➍➎➏`[i-1] + ` 독서`, type: 'read' });
             tempDate.setDate(tempDate.getDate() + 1);
             let eStart = new Date(tempDate);
             tempDate.setDate(tempDate.getDate() + 6);
-            schedule.push({ start: eStart, end: new Date(tempDate), label: `➊➋➌➍➎➏` + ` 교환`[i-1], type: 'ex' });
+            schedule.push({ start: eStart, end: new Date(tempDate), label: `➊➋➌➍➎➏`[i-1] + ` 교환`, type: 'ex' });
             tempDate.setDate(tempDate.getDate() + 1);
         }
         let r7Start = new Date(tempDate);
@@ -127,7 +179,7 @@
                         const isStart = cur.getTime() === item.start.getTime();
                         const isEnd = cur.getTime() === item.end.getTime();
                         let shapeClass = (isStart && isEnd) ? "single" : (isStart ? "start" : (isEnd ? "end" : "middle"));
-                        const labelText = (isStart || (cur.getDay() === 0 && cur > item.start) || d === 1) ? (item.label || "") : '';
+                        const labelText = (isStart || (cur.getDay() === 0 && cur > item.start) || d === 1) ? item.label : '';
                         html += `<div class="bar bg-${item.type} ${shapeClass}">${labelText}</div>`;
                     }
                 });
@@ -146,11 +198,7 @@
                     current = section.getAttribute('id') || "home";
                 }
             });
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                const href = link.getAttribute('href').substring(1) || "home";
-                if (href === current) link.classList.add('active');
-            });
+            navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href').substring(1) === current || (link.getAttribute('href') === "#" && current === "home")) link.classList.add('active'); });
         });
 
         window.onload = function() { renderCalendar(1); };
