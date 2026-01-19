@@ -5,70 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>다산 북클럽</title>
     <style>
-        /* 폰트 및 기본 설정 */
-        body { font-family: 'Pretendard', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f4f4; scroll-behavior: smooth; }
-        
-        /* 상단 메뉴 (카테고리) */
-        nav { background: #fff; padding: 1rem; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
-        nav a { margin: 0 20px; text-decoration: none; color: #333; font-weight: bold; font-size: 1.1rem; }
+        /* 기본 설정 */
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+
+        /* [1] 첫 화면: 풀 스크린 이미지 섹션 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center;
+        }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
+        .start-btn { 
+            padding: 15px 40px; font-size: 1.2rem; background: #4a6741; color: white; 
+            text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .start-btn:hover { background: #384e32; transform: scale(1.05); }
+
+        /* [2] 상단 고정 메뉴 */
+        nav { 
+            position: sticky; top: 0; background: white; display: flex; 
+            justify-content: center; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000;
+        }
+        nav a { margin: 0 20px; text-decoration: none; color: #333; font-weight: bold; }
         nav a:hover { color: #4a6741; }
 
-        /* 대형 표지 이미지 섹션 */
-        .hero { 
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80'); 
-            background-size: cover; background-position: center; 
-            height: 500px; display: flex; align-items: center; justify-content: center; color: white; margin-top: 50px;
+        /* 컨텐츠 공통 스타일 */
+        section { min-height: 100vh; padding: 100px 20px; max-width: 900px; margin: 0 auto; }
+        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        h2 { color: #4a6741; font-size: 2rem; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 30px; }
+
+        /* [3] 캘린더 스타일 */
+        .month-box { margin-bottom: 60px; padding: 20px; border: 1px solid #eee; border-radius: 15px; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
+        .day { padding: 15px; border: 1px solid #f9f9f9; background: #fff; border-radius: 5px; position: relative; font-size: 0.9rem; }
+        .header { background: #4a6741; color: white; font-weight: bold; }
+        .event { color: #d32f2f; font-weight: bold; font-size: 0.75rem; margin-top: 5px; }
+        
+        /* 다음 달 이동 버튼 */
+        .next-month-btn { 
+            display: inline-block; margin-top: 20px; padding: 10px 20px; 
+            background: #f0f0f0; color: #4a6741; text-decoration: none; border-radius: 10px; font-size: 0.9rem; font-weight: bold;
         }
-        .hero h1 { font-size: 4rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); margin: 0; }
-
-        section { max-width: 900px; margin: 3rem auto; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h2 { color: #4a6741; border-bottom: 2px solid #4a6741; padding-bottom: 10px; }
-
-        /* 캘린더 스타일 */
-        .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 20px; }
-        .day { background: #fff; border: 1px solid #ddd; height: 100px; padding: 8px; border-radius: 4px; position: relative; }
-        .day.header { background: #4a6741; color: white; height: auto; text-align: center; font-weight: bold; border: none; }
-        .event { background: #dcedc8; color: #33691e; padding: 3px; font-size: 0.75rem; border-radius: 3px; margin-top: 5px; font-weight: bold; }
-
-        footer { text-align: center; padding: 3rem; background: #333; color: #ccc; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#notice">Notice</a>
-        <a href="#calendar">Calendar</a>
-        <a href="#members">Members</a>
+    <div class="hero">
+        <h1>다산 북클럽</h1>
+        <p style="font-size: 1.2rem; margin-bottom: 30px;">함께 읽고, 나누며, 성장하는 시간</p>
+        <a href="#main-content" class="start-btn">입장하기</a>
+    </div>
+
+    <nav id="main-content">
+        <a href="#notice">순서와 규칙</a>
+        <a href="#calendar">캘린더 (2월~8월)</a>
     </nav>
 
-    <header class="hero">
-        <h1>다산 북클럽</h1>
-    </header>
-
     <section id="notice">
-        <h2>📢 Notice</h2>
-        <p><strong>전달 순서:</strong> 지은 → 민수 → 서연 → 도윤 → 지후</p>
-        <p><strong>모임 규칙:</strong> 매월 마지막 주 토요일, 정해진 책을 읽고 발제문을 준비합니다.</p>
-    </section>
-
-    <section id="calendar">
-        <h2>📅 Calendar</h2>
-        <div class="calendar">
-            <div class="day header">일</div><div class="day header">월</div><div class="day header">화</div><div class="day header">수</div><div class="day header">목</div><div class="day header">금</div><div class="day header">토</div>
-            <div class="day"></div><div class="day"></div><div class="day"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div>
-            <div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10<div class="event">정기 모임</div></div><div class="day">11</div>
-            <div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div>
+        <div class="card">
+            <h2>📢 순서와 규칙</h2>
+            <h3>[발제 전달 순서]</h3>
+            <p style="font-size: 1.2rem; background: #f9f9f9; padding: 15px; border-radius: 10px;">지은 → 민수 → 서연 → 도윤 → 지후</p>
+            <h3>[우리들의 약속]</h3>
+            <ul>
+                <li>매월 지정 도서 완독 후 참석하기</li>
+                <li>발제자는 3일 전까지 질문지 공유하기</li>
+                <li>서로의 생각에 경청하고 존중하기</li>
+            </ul>
         </div>
     </section>
 
-    <section id="members">
-        <h2>👥 Members</h2>
-        <p>우리와 함께하는 열정적인 독서가들입니다.</p>
-        </section>
+    <section id="calendar">
+        <div class="card">
+            <h2>📅 활동 일정</h2>
 
-    <footer>
-        <p>&copy; 2026 다산 북클럽. All rights reserved.</p>
+            <div id="m02" class="month-box">
+                <h3>2월 (February)</h3>
+                <div class="calendar-grid">
+                    <div class="day header">일</div><div class="day header">월</div><div class="day header">화</div><div class="day header">수</div><div class="day header">목</div><div class="day header">금</div><div class="day header">토</div>
+                    <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
+                    <div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14<div class="event">정기모임</div></div>
+                </div>
+                <a href="#m03" class="next-month-btn">다음 달(3월) 보기 ↓</a>
+            </div>
+
+            <div id="m03" class="month-box">
+                <h3>3월 (March)</h3>
+                <div class="calendar-grid">
+                    <div class="day header">일</div><div class="day header">월</div><div class="day header">화</div><div class="day header">수</div><div class="day header">목</div><div class="day header">금</div><div class="day header">토</div>
+                    <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
+                </div>
+                <a href="#m04" class="next-month-btn">다음 달(4월) 보기 ↓</a>
+            </div>
+
+            <div id="m04" class="month-box"><h3>4월 (April)</h3><a href="#m05" class="next-month-btn">5월 보기 ↓</a></div>
+            <div id="m05" class="month-box"><h3>5월 (May)</h3><a href="#m06" class="next-month-btn">6월 보기 ↓</a></div>
+            <div id="m06" class="month-box"><h3>6월 (June)</h3><a href="#m07" class="next-month-btn">7월 보기 ↓</a></div>
+            <div id="m07" class="month-box"><h3>7월 (July)</h3><a href="#m08" class="next-month-btn">8월 보기 ↓</a></div>
+            <div id="m08" class="month-box"><h3>8월 (August)</h3><p style="text-align: center; color: #999;">여기가 올해 일정의 끝입니다!</p></div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 50px; color: #888;">
+        &copy; 2026 다산 북클럽. 행복한 독서 생활 되세요!
     </footer>
 
 </body>
