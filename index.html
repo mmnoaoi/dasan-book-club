@@ -6,8 +6,9 @@
     <title>Dasan Book Club</title>
     <style>
         * { box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; scroll-behavior: smooth; background: #fafafa; color: #777; }
+        body, html { margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; scroll-behavior: smooth; background: #fafafa; color: #888; }
 
+        /* 메뉴바 */
         .top-nav {
             position: fixed; top: 0; width: 100%; height: 55px;
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
@@ -15,29 +16,33 @@
             gap: 15px; z-index: 1000; box-shadow: 0 1px 10px rgba(0,0,0,0.03);
         }
         .top-nav a { text-decoration: none; color: #999; font-weight: bold; font-size: 0.8rem; padding: 8px 12px; border-radius: 20px; }
-        .top-nav a:hover { color: #ffccd5; }
 
+        /* 메인 이미지 공간 */
         .hero { height: 100vh; background-image: url('cover.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
 
+        /* 컨텐츠 박스 */
         section { min-height: 100vh; padding: 80px 15px 40px; }
-        .container { max-width: 700px; margin: 0 auto; background: white; padding: 30px; border-radius: 25px; border: 1px solid #f0f0f0; }
-        h2 { color: #ffccd5; text-align: center; font-size: 1.6rem; margin-bottom: 25px; }
+        .container { max-width: 700px; margin: 0 auto; background: white; padding: 30px; border-radius: 25px; border: 1px solid #f0f0f0; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        h2 { color: #ffccd5; text-align: center; font-size: 1.8rem; margin-bottom: 25px; }
 
-        .month-section { display: none; }
-        .month-section.active { display: block; }
+        /* 캘린더 핵심: 안 보이는 달은 숨기기 */
+        .month-section { display: none; } 
+        .month-section.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 10px; background: #fffafb; border-radius: 15px; }
-        .arrow-btn { cursor: pointer; border: none; background: #ffccd5; color: white; padding: 7px 15px; border-radius: 50px; font-size: 0.7rem; font-weight: bold; }
+        .arrow-btn { cursor: pointer; border: none; background: #ffccd5; color: white; padding: 8px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; transition: 0.2s; }
+        .arrow-btn:hover { background: #ffb3c1; }
         .arrow-btn:disabled { background: #eee; cursor: default; }
 
-        .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
-        .day { padding: 8px 2px; border: 1px solid #fafafa; border-radius: 8px; font-size: 0.75rem; min-height: 65px; color: #aaa; background: #fff; position: relative; }
-        .day.head { background: #fff0f3; color: #ff8fa3; font-weight: bold; min-height: auto; padding: 8px 0; border: none; }
+        .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
+        .day { padding: 10px 2px; border: 1px solid #fdfdfd; border-radius: 8px; font-size: 0.75rem; min-height: 65px; color: #aaa; background: #fff; display: flex; flex-direction: column; align-items: center; }
+        .day.head { background: #fff0f3; color: #ff8fa3; font-weight: bold; min-height: auto; padding: 10px 0; border: none; }
         
-        /* 일정 라벨 스타일 */
-        .event { font-weight: bold; font-size: 0.55rem; margin-top: 4px; padding: 2px; border-radius: 4px; line-height: 1.1; }
-        .reading { background: #fff0f3; color: #ff8fa3; } /* 독서: 연핑크 */
-        .exchange { background: #e3f2fd; color: #42a5f5; } /* 교환: 연하늘 */
+        /* 라벨 스타일 */
+        .event { font-weight: bold; font-size: 0.55rem; margin-top: 5px; padding: 2px 4px; border-radius: 4px; width: 90%; }
+        .reading { background: #fff0f3; color: #ff8fa3; }
+        .exchange { background: #e3f2fd; color: #42a5f5; }
     </style>
 </head>
 <body>
@@ -53,89 +58,71 @@
     <section id="notice">
         <div class="container">
             <h2>Notice</h2>
-            <div style="background: #fff8f9; padding: 20px; border-radius: 20px; border: 1px dashed #ffccd5; text-align: center;">
-                <p style="font-size: 0.8rem; color: #ffb3c1; margin:0;">[ Cycle ]</p>
-                <span style="font-size: 1.1rem; font-weight: bold; color: #ff8fa3; display: block; margin: 10px 0;">30 Days Reading → 7 Days Exchange</span>
+            <div style="background: #fff8f9; padding: 25px; border-radius: 20px; border: 1px dashed #ffccd5; text-align: center;">
+                <p style="font-size: 0.85rem; color: #ffb3c1; margin:0;">[ Schedule Cycle ]</p>
+                <span style="font-size: 1.2rem; font-weight: bold; color: #ff8fa3; display: block; margin: 10px 0;">30 Days Reading → 7 Days Exchange</span>
             </div>
-            <div style="margin-top: 30px; font-size: 0.9rem;">
+            <div style="margin-top: 30px; line-height: 1.8;">
                 <h3 style="color: #ffccd5;">Presentation Order</h3>
-                <p style="color: #888;">Ji-eun → Min-su → Seo-yeon → Do-yun → Ji-hu</p>
+                <p style="color: #999;">Ji-eun → Min-su → Seo-yeon → Do-yun → Ji-hu</p>
             </div>
         </div>
     </section>
 
     <section id="calendar">
-        <div class="container">
+        <div class="container" id="cal-container">
             <h2>Calendar</h2>
-
-            <div id="m2" class="month-section active">
-                <div class="cal-header">
-                    <button class="arrow-btn" disabled>Prev</button>
-                    <h3 style="margin:0; font-size: 1.1rem; color: #ff8fa3;">Feb 2026</h3>
-                    <button class="arrow-btn" onclick="showMonth('m3')">Next</button>
-                </div>
-                <div class="grid">
-                    <div class="day head">Sun</div><div class="day head">Mon</div><div class="day head">Tue</div><div class="day head">Wed</div><div class="day head">Thu</div><div class="day head">Fri</div><div class="day head">Sat</div>
-                    <script>
-                        for(let i=1; i<=28; i++) {
-                            document.write(`<div class="day">${i}<div class="event reading">Reading</div></div>`);
-                        }
-                    </script>
-                </div>
             </div>
-
-            <div id="m3" class="month-section">
-                <div class="cal-header">
-                    <button class="arrow-btn" onclick="showMonth('m2')">Prev</button>
-                    <h3 style="margin:0; font-size: 1.1rem; color: #ff8fa3;">Mar 2026</h3>
-                    <button class="arrow-btn" onclick="showMonth('m4')">Next</button>
-                </div>
-                <div class="grid">
-                    <div class="day head">Sun</div><div class="day head">Mon</div><div class="day head">Tue</div><div class="day head">Wed</div><div class="day head">Thu</div><div class="day head">Fri</div><div class="day head">Sat</div>
-                    <script>
-                        for(let i=1; i<=31; i++) {
-                            let tag = i <= 2 ? "reading" : (i <= 9 ? "exchange" : "reading");
-                            let text = i <= 2 ? "Reading" : (i <= 9 ? "Exchange" : "Reading");
-                            document.write(`<div class="day">${i}<div class="event ${tag}">${text}</div></div>`);
-                        }
-                    </script>
-                </div>
-            </div>
-
-            <div id="m4" class="month-section">
-                <div class="cal-header">
-                    <button class="arrow-btn" onclick="showMonth('m3')">Prev</button>
-                    <h3 style="margin:0; font-size: 1.1rem; color: #ff8fa3;">Apr 2026</h3>
-                    <button class="arrow-btn" onclick="showMonth('m5')">Next</button>
-                </div>
-                <div class="grid">
-                    <div class="day head">Sun</div><div class="day head">Mon</div><div class="day head">Tue</div><div class="day head">Wed</div><div class="day head">Thu</div><div class="day head">Fri</div><div class="day head">Sat</div>
-                    <div class="day"></div><div class="day"></div><div class="day"></div> <script>
-                        for(let i=1; i<=30; i++) {
-                            let tag = i <= 8 ? "reading" : (i <= 15 ? "exchange" : "reading");
-                            let text = i <= 8 ? "Reading" : (i <= 15 ? "Exchange" : "Reading");
-                            document.write(`<div class="day">${i}<div class="event ${tag}">${text}</div></div>`);
-                        }
-                    </script>
-                </div>
-            </div>
-
-            <div id="m5" class="month-section"><div class="cal-header"><button class="arrow-btn" onclick="showMonth('m4')">Prev</button><h3>May 2026</h3><button class="arrow-btn" onclick="showMonth('m6')">Next</button></div><p style="text-align:center; padding:50px;">Check the cycle on previous months!</p></div>
-            <div id="m6" class="month-section"><div class="cal-header"><button class="arrow-btn" onclick="showMonth('m5')">Prev</button><h3>Jun 2026</h3><button class="arrow-btn" onclick="showMonth('m7')">Next</button></div><p style="text-align:center; padding:50px;">Check the cycle on previous months!</p></div>
-            <div id="m7" class="month-section"><div class="cal-header"><button class="arrow-btn" onclick="showMonth('m6')">Prev</button><h3>Jul 2026</h3><button class="arrow-btn" onclick="showMonth('m8')">Next</button></div><p style="text-align:center; padding:50px;">Check the cycle on previous months!</p></div>
-            <div id="m8" class="month-section"><div class="cal-header"><button class="arrow-btn" onclick="showMonth('m7')">Prev</button><h3>Aug 2026</h3><button class="arrow-btn" disabled>End</button></div><p style="text-align:center; padding:50px;">Happy Reading!</p></div>
-
-        </div>
     </section>
 
     <script>
-        function showMonth(monthId) {
-            const sections = document.querySelectorAll('.month-section');
-            sections.forEach(sec => sec.classList.remove('active'));
-            document.getElementById(monthId).classList.add('active');
+        // 2026년 2월 1일부터 시작하는 사이클 데이터
+        const startDate = new Date(2026, 1, 1); // 2월 1일
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
+        let currentViewMonth = 1; // 2월부터 시작 (인덱스 1)
+
+        function renderCalendar(monthIdx) {
+            const year = 2026;
+            const firstDay = new Date(year, monthIdx, 1).getDay();
+            const lastDate = new Date(year, monthIdx + 1, 0).getDate();
+            
+            let html = `
+                <div class="cal-header">
+                    <button class="arrow-btn" ${monthIdx === 1 ? 'disabled' : `onclick="renderCalendar(${monthIdx-1})"`}>Prev</button>
+                    <h3 style="margin:0; font-size: 1.2rem; color: #ff8fa3;">${monthNames[monthIdx]} 2026</h3>
+                    <button class="arrow-btn" ${monthIdx === 7 ? 'disabled' : `onclick="renderCalendar(${monthIdx+1})"`}>Next</button>
+                </div>
+                <div class="grid">
+                    <div class="day head">Sun</div><div class="day head">Mon</div><div class="day head">Tue</div><div class="day head">Wed</div><div class="day head">Thu</div><div class="day head">Fri</div><div class="day head">Sat</div>`;
+            
+            // 빈 칸 채우기
+            for (let i = 0; i < firstDay; i++) html += `<div class="day"></div>`;
+            
+            // 날짜 채우기
+            for (let d = 1; d <= lastDate; d++) {
+                const today = new Date(year, monthIdx, d);
+                const diffTime = today - startDate;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                let eventHtml = '';
+                if (diffDays >= 0) {
+                    const cycleDay = diffDays % 37;
+                    if (cycleDay < 30) {
+                        eventHtml = `<div class="event reading">Reading</div>`;
+                    } else {
+                        eventHtml = `<div class="event exchange">Exchange</div>`;
+                    }
+                }
+                html += `<div class="day">${d}${eventHtml}</div>`;
+            }
+            
+            html += `</div>`;
+            document.getElementById('cal-container').innerHTML = `<h2>Calendar</h2>` + html;
         }
+
+        // 초기 실행
+        renderCalendar(1);
     </script>
 </body>
 </html>
-
 
