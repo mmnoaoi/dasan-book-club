@@ -10,7 +10,6 @@
         * { box-sizing: border-box; }
         html { 
             scroll-behavior: smooth; 
-            /* 메뉴 클릭 시 제목이 메뉴바에 가려지지 않게 여백 설정 */
             scroll-padding-top: 70px; 
         }
         body { margin: 0; padding: 0; font-family: 'NanumSquare', sans-serif; background: #fffafb; color: #888; text-transform: lowercase; }
@@ -40,7 +39,6 @@
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
         .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 95px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; position: relative; }
         
-        /* 오늘 날짜 표시 스타일 */
         .day.today span { 
             background: #ffcbd5; 
             color: white; 
@@ -71,7 +69,7 @@
             section { padding: 80px 5px 40px; } 
             .container { padding: 25px 15px; border-radius: 15px; width: 96%; }
             .day { min-height: 85px; }
-            .bar { font-size: 0.5rem; } /* 모바일 가독성 위해 글자 약간 줄임 */
+            .bar { font-size: 0.5rem; }
         }
     </style>
 </head>
@@ -165,9 +163,9 @@
             let html = `
                 <h2>calendar</h2>
                 <div class="cal-header">
-                    <button class="arrow-btn" ${monthIdx <= 1 ? 'disabled style="opacity:0.2"' : `onclick="renderCalendar(${monthIdx-1})"`}>◀</button>
+                    <button class="arrow-btn" ${monthIdx <= 0 ? 'disabled style="opacity:0.2"' : `onclick="renderCalendar(${monthIdx-1})"`}>◀</button>
                     <h3 class="month-title">${monthNames[monthIdx]}</h3>
-                    <button class="arrow-btn" ${monthIdx >= 10 ? 'disabled style="opacity:0.2"' : `onclick="renderCalendar(${monthIdx+1})"`}>▶</button>
+                    <button class="arrow-btn" ${monthIdx >= 9 ? 'disabled style="opacity:0.2"' : `onclick="renderCalendar(${monthIdx+1})"`}>▶</button>
                 </div>
                 <div class="grid">`;
             dayNames.forEach(day => { html += `<div class="day head">${day}</div>`; });
@@ -176,7 +174,6 @@
             
             for (let d = 1; d <= lastDate; d++) {
                 const cur = new Date(year, monthIdx, d);
-                // 오늘 날짜인지 체크
                 const isToday = now.getFullYear() === cur.getFullYear() && 
                                 now.getMonth() === cur.getMonth() && 
                                 now.getDate() === d;
@@ -218,12 +215,9 @@
             });
         });
 
-        // 접속 시 이번 달 달력 보여주기 (현재 2026년 기준 1월=0)
-        // 만약 오늘 날짜가 있는 달로 바로 보여주고 싶다면 now.getMonth() 사용
         window.onload = function() { 
-            const now = new Date();
-            // 2026년 일정 시작 달(2월=1)부터 보여주도록 설정되어 있음
-            renderCalendar(1); 
+            // 1월(인덱스 0)부터 시작하도록 변경
+            renderCalendar(0); 
         };
     </script>
 </body>
