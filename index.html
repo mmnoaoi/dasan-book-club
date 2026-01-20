@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dasan book club</title>
+    <link rel="icon" href="https://fav.farm/📖">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <style>
         * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth; 
+            /* 메뉴 클릭 시 제목이 메뉴바에 가려지지 않게 여백 설정 */
+            scroll-padding-top: 70px; 
+        }
         body { margin: 0; padding: 0; font-family: 'NanumSquare', sans-serif; background: #fffafb; color: #888; text-transform: lowercase; }
         
         .top-nav { position: fixed; top: 0; width: 100%; height: 55px; background: #ffcbd5; display: flex; justify-content: center; align-items: center; gap: 10px; z-index: 1000; box-shadow: 0 1px 10px rgba(255, 180, 190, 0.2); }
@@ -20,7 +25,6 @@
         .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px 30px; border-radius: 25px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); width: 100%; }
         .container.wide { max-width: 1200px; padding: 40px 15px; }
 
-        /* 제목 스타일 업그레이드 (스티커 느낌) */
         h2 { display: table; margin: 0 auto 45px; background: #ffeef1; color: #ff85a1; padding: 5px 25px; border-radius: 30px; font-size: 1.5rem; letter-spacing: 2px; font-weight: 900; }
 
         .notice-card { background: #fffbfc; padding: 25px; border-radius: 18px; margin-bottom: 20px; border: 1px solid #fff0f3; }
@@ -29,15 +33,25 @@
 
         .order-highlight { background: #ffffff; padding: 18px; border-radius: 12px; text-align: center; font-weight: 800; color: #bbb; margin: 15px 0; font-size: 0.95rem; border: 1.5px solid #ffeef1; letter-spacing: 1px; }
         
-        .schedule-list { font-size: 0.85rem; line-height: 2.2; color: #9a8084; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #fff0f3; margin-top: 10px; font-weight: 700; }
-
-        /* 캘린더 헤더 부분 간격 및 폰트 조정 */
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 0 10px; }
-        .month-title { margin:0; font-size: 1.8rem; color: #ffb5c5; font-weight: 900; font-family: 'NanumSquare', sans-serif; }
+        .month-title { margin:0; font-size: 1.8rem; color: #ffb5c5; font-weight: 900; }
         .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
         
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
-        .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 95px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; }
+        .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 95px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; position: relative; }
+        
+        /* 오늘 날짜 표시 스타일 */
+        .day.today span { 
+            background: #ffcbd5; 
+            color: white; 
+            width: 22px; 
+            height: 22px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+
         .day span { margin-bottom: 6px; font-weight: 700; }
         .day.head { background: #fffdec; color: #ccb0b5; font-weight: 900; min-height: auto; padding: 15px 0; border-bottom: 1px solid #f9f3d5; }
         
@@ -57,6 +71,7 @@
             section { padding: 80px 5px 40px; } 
             .container { padding: 25px 15px; border-radius: 15px; width: 96%; }
             .day { min-height: 85px; }
+            .bar { font-size: 0.5rem; } /* 모바일 가독성 위해 글자 약간 줄임 */
         }
     </style>
 </head>
@@ -117,11 +132,8 @@
     </section>
 
     <script>
-        // 월 표시를 숫자로 변경 (2月 스타일)
         const monthNames = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
         const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
-        
-        // 이하 자바스크립트 로직 동일
         const startDate = new Date(2026, 1, 1);
         let schedule = [];
         let tempDate = new Date(startDate);
@@ -143,6 +155,7 @@
         }
 
         function renderCalendar(monthIdx) {
+            const now = new Date();
             const year = 2026;
             const container = document.getElementById('cal-container');
             const firstDay = new Date(year, monthIdx, 1).getDay();
@@ -158,10 +171,18 @@
                 </div>
                 <div class="grid">`;
             dayNames.forEach(day => { html += `<div class="day head">${day}</div>`; });
+            
             for (let i = 0; i < firstDay; i++) html += `<div class="day"></div>`;
+            
             for (let d = 1; d <= lastDate; d++) {
                 const cur = new Date(year, monthIdx, d);
-                html += `<div class="day"><span>${d}</span>`;
+                // 오늘 날짜인지 체크
+                const isToday = now.getFullYear() === cur.getFullYear() && 
+                                now.getMonth() === cur.getMonth() && 
+                                now.getDate() === d;
+                
+                html += `<div class="day ${isToday ? 'today' : ''}"><span>${d}</span>`;
+                
                 schedule.forEach(item => {
                     const s = new Date(item.start.getFullYear(), item.start.getMonth(), item.start.getDate());
                     const e = new Date(item.end.getFullYear(), item.end.getMonth(), item.end.getDate());
@@ -197,7 +218,13 @@
             });
         });
 
-        window.onload = function() { renderCalendar(1); };
+        // 접속 시 이번 달 달력 보여주기 (현재 2026년 기준 1월=0)
+        // 만약 오늘 날짜가 있는 달로 바로 보여주고 싶다면 now.getMonth() 사용
+        window.onload = function() { 
+            const now = new Date();
+            // 2026년 일정 시작 달(2월=1)부터 보여주도록 설정되어 있음
+            renderCalendar(1); 
+        };
     </script>
 </body>
 </html>
