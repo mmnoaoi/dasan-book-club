@@ -36,13 +36,10 @@
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
         .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 105px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; position: relative; }
         
-        .day.today span.date-num { 
-            background: #ffcbd5; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-        }
+        .day.today span.date-num { background: #ffcbd5; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .day span.date-num { margin-bottom: 6px; font-weight: 700; z-index: 2; }
         .day.head { background: #fffdec; color: #ccb0b5; font-weight: 900; min-height: auto; padding: 15px 0; border-bottom: 1px solid #f9f3d5; }
         
-        /* 독서/교환 바 스타일 */
         .bar { height: 18px; font-size: 0.58rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; z-index: 1; }
         .bar.start { border-radius: 10px 0 0 10px; width: 92%; margin-left: 8%; }
         .bar.end { border-radius: 0 10px 10px 0; width: 92%; margin-right: 8%; }
@@ -53,11 +50,11 @@
         .bg-ex { background-color: #f2faf2; color: #a8c4a8; }
         .bg-return { background-color: #e3f2fd; color: #90caf9; }
 
-        /* 생일 스타일 (하단 배치) */
+        /* 생일 스타일 수정: 배경 없이 숫자와 같은 색상으로 */
         .birthday-tag {
-            position: absolute; bottom: 5px; width: 100%; text-align: center;
-            font-size: 0.65rem; font-weight: 800; color: #ff85a1; background: #fff0f3;
-            padding: 2px 0; border-radius: 4px; width: 90%;
+            position: absolute; bottom: 8px; width: 100%; text-align: center;
+            font-size: 0.65rem; font-weight: 700; color: #ccb0b5; /* 숫자 색상과 통일 */
+            letter-spacing: -0.5px;
         }
 
         .board-wrapper { width: 100%; height: 75vh; border-radius: 18px; overflow: hidden; border: 1px solid #ffeef1; }
@@ -130,15 +127,15 @@
         const monthNames = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
         const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
         
-        // 생일 데이터 (월은 0부터 시작: 1월=0, 2월=1...)
+        // 생일 문구 수정
         const birthdays = [
-            { m: 1, d: 5, name: "원" },
-            { m: 2, d: 13, name: "예진" },
-            { m: 6, d: 4, name: "서현" },
-            { m: 6, d: 12, name: "우빈" },
-            { m: 9, d: 15, name: "민주" },
-            { m: 9, d: 24, name: "미나" },
-            { m: 11, d: 31, name: "지은" }
+            { m: 1, d: 5, name: "원이 생일" },
+            { m: 2, d: 13, name: "예진 생일" },
+            { m: 6, d: 4, name: "서현 생일" },
+            { m: 6, d: 12, name: "우빈 생일" },
+            { m: 9, d: 15, name: "민주 생일" },
+            { m: 9, d: 24, name: "미나 생일" },
+            { m: 11, d: 31, name: "지은 생일" }
         ];
 
         const startDate = new Date(2026, 1, 1);
@@ -187,7 +184,6 @@
                 
                 html += `<div class="day ${isToday ? 'today' : ''}"><span class="date-num">${d}</span>`;
                 
-                // 독서/교환 바 렌더링
                 schedule.forEach(item => {
                     const s = new Date(item.start.getFullYear(), item.start.getMonth(), item.start.getDate());
                     const e = new Date(item.end.getFullYear(), item.end.getMonth(), item.end.getDate());
@@ -201,10 +197,9 @@
                     }
                 });
 
-                // 생일 렌더링 (해당 날짜에 생일이 있으면 태그 추가)
                 const bday = birthdays.find(b => b.m === monthIdx && b.d === d);
                 if (bday) {
-                    html += `<div class="birthday-tag">🎂 ${bday.name} b-day</div>`;
+                    html += `<div class="birthday-tag">${bday.name}</div>`;
                 }
 
                 html += `</div>`;
@@ -215,7 +210,7 @@
             container.innerHTML = html;
         }
 
-        window.addEventListener('scroll', () => {
+            window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section, header');
             const navLinks = document.querySelectorAll('.nav-link');
             let current = "";
