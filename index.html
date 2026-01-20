@@ -8,10 +8,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <style>
         * { box-sizing: border-box; }
-        html { 
-            scroll-behavior: smooth; 
-            scroll-padding-top: 70px; 
-        }
+        html { scroll-behavior: smooth; scroll-padding-top: 70px; }
         body { margin: 0; padding: 0; font-family: 'NanumSquare', sans-serif; background: #fffafb; color: #888; text-transform: lowercase; }
         
         .top-nav { position: fixed; top: 0; width: 100%; height: 55px; background: #ffcbd5; display: flex; justify-content: center; align-items: center; gap: 10px; z-index: 1000; box-shadow: 0 1px 10px rgba(255, 180, 190, 0.2); }
@@ -37,23 +34,16 @@
         .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
         
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
-        .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 95px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; position: relative; }
+        .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 105px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; position: relative; }
         
-        .day.today span { 
-            background: #ffcbd5; 
-            color: white; 
-            width: 22px; 
-            height: 22px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
+        .day.today span.date-num { 
+            background: #ffcbd5; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
         }
-
-        .day span { margin-bottom: 6px; font-weight: 700; }
+        .day span.date-num { margin-bottom: 6px; font-weight: 700; z-index: 2; }
         .day.head { background: #fffdec; color: #ccb0b5; font-weight: 900; min-height: auto; padding: 15px 0; border-bottom: 1px solid #f9f3d5; }
         
-        .bar { height: 20px; font-size: 0.58rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; }
+        /* 독서/교환 바 스타일 */
+        .bar { height: 18px; font-size: 0.58rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; z-index: 1; }
         .bar.start { border-radius: 10px 0 0 10px; width: 92%; margin-left: 8%; }
         .bar.end { border-radius: 0 10px 10px 0; width: 92%; margin-right: 8%; }
         .bar.middle { width: 100%; border-radius: 0; }
@@ -63,12 +53,19 @@
         .bg-ex { background-color: #f2faf2; color: #a8c4a8; }
         .bg-return { background-color: #e3f2fd; color: #90caf9; }
 
+        /* 생일 스타일 (하단 배치) */
+        .birthday-tag {
+            position: absolute; bottom: 5px; width: 100%; text-align: center;
+            font-size: 0.65rem; font-weight: 800; color: #ff85a1; background: #fff0f3;
+            padding: 2px 0; border-radius: 4px; width: 90%;
+        }
+
         .board-wrapper { width: 100%; height: 75vh; border-radius: 18px; overflow: hidden; border: 1px solid #ffeef1; }
         
         @media (max-width: 600px) {
             section { padding: 80px 5px 40px; } 
             .container { padding: 25px 15px; border-radius: 15px; width: 96%; }
-            .day { min-height: 85px; }
+            .day { min-height: 95px; }
             .bar { font-size: 0.5rem; }
         }
     </style>
@@ -132,6 +129,18 @@
     <script>
         const monthNames = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
         const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+        
+        // 생일 데이터 (월은 0부터 시작: 1월=0, 2월=1...)
+        const birthdays = [
+            { m: 1, d: 5, name: "원" },
+            { m: 2, d: 13, name: "예진" },
+            { m: 6, d: 4, name: "서현" },
+            { m: 6, d: 12, name: "우빈" },
+            { m: 9, d: 15, name: "민주" },
+            { m: 9, d: 24, name: "미나" },
+            { m: 11, d: 31, name: "지은" }
+        ];
+
         const startDate = new Date(2026, 1, 1);
         let schedule = [];
         let tempDate = new Date(startDate);
@@ -165,7 +174,7 @@
                 <div class="cal-header">
                     <button class="arrow-btn" ${monthIdx <= 0 ? 'disabled style="opacity:0.2"' : `onclick="renderCalendar(${monthIdx-1})"`}>◀</button>
                     <h3 class="month-title">${monthNames[monthIdx]}</h3>
-                    <button class="arrow-btn" ${monthIdx >= 9 ? 'disabled style="opacity:0.2"' : `onclick="renderCalendar(${monthIdx+1})"`}>▶</button>
+                    <button class="arrow-btn" ${monthIdx >= 11 ? 'disabled style="opacity:0.2"' : `onclick="renderCalendar(${monthIdx+1})"`}>▶</button>
                 </div>
                 <div class="grid">`;
             dayNames.forEach(day => { html += `<div class="day head">${day}</div>`; });
@@ -174,12 +183,11 @@
             
             for (let d = 1; d <= lastDate; d++) {
                 const cur = new Date(year, monthIdx, d);
-                const isToday = now.getFullYear() === cur.getFullYear() && 
-                                now.getMonth() === cur.getMonth() && 
-                                now.getDate() === d;
+                const isToday = now.getFullYear() === cur.getFullYear() && now.getMonth() === cur.getMonth() && now.getDate() === d;
                 
-                html += `<div class="day ${isToday ? 'today' : ''}"><span>${d}</span>`;
+                html += `<div class="day ${isToday ? 'today' : ''}"><span class="date-num">${d}</span>`;
                 
+                // 독서/교환 바 렌더링
                 schedule.forEach(item => {
                     const s = new Date(item.start.getFullYear(), item.start.getMonth(), item.start.getDate());
                     const e = new Date(item.end.getFullYear(), item.end.getMonth(), item.end.getDate());
@@ -192,6 +200,13 @@
                         html += `<div class="bar bg-${item.type} ${shapeClass}">${labelText}</div>`;
                     }
                 });
+
+                // 생일 렌더링 (해당 날짜에 생일이 있으면 태그 추가)
+                const bday = birthdays.find(b => b.m === monthIdx && b.d === d);
+                if (bday) {
+                    html += `<div class="birthday-tag">🎂 ${bday.name} b-day</div>`;
+                }
+
                 html += `</div>`;
             }
             const remainingSlots = totalSlots - (firstDay + lastDate);
@@ -215,10 +230,7 @@
             });
         });
 
-        window.onload = function() { 
-            // 1월(인덱스 0)부터 시작하도록 변경
-            renderCalendar(0); 
-        };
+        window.onload = function() { renderCalendar(0); };
     </script>
 </body>
 </html>
