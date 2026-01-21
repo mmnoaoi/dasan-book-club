@@ -5,28 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dasan book club</title>
     <link rel="icon" href="https://fav.farm/📖">
-    
-    <link rel="stylesheet" href="https://webfontworld.github.io/score/SCoreDream.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202@1.0/JejuDoldam.css">
-    
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
     <style>
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+        body { margin: 0; padding: 0; font-family: 'NanumSquare', sans-serif; background: #fffafb; color: #888; text-transform: lowercase; }
         
-        /* 기본 본문 폰트: 에스코어 드림 */
-        body, button, input, textarea { 
-            font-family: 'SCoreDream', sans-serif;
-            margin: 0; padding: 0; background: #fffafb; color: #888; text-transform: lowercase; 
-        }
-        
-        /* 강조용 폰트: 제주돌담체 전용 클래스 */
-        .point-font { font-family: 'JejuDoldam', cursive; }
-
         .top-nav { position: fixed; top: 0; width: 100%; height: 55px; background: #ffcbd5; display: flex; justify-content: center; align-items: center; gap: 10px; z-index: 1000; box-shadow: 0 1px 10px rgba(255, 180, 190, 0.2); }
-        .top-nav a { 
-            text-decoration: none; color: #ffffff; font-size: 0.9rem; padding: 6px 15px; border-radius: 20px; transition: 0.3s;
-            font-family: 'JejuDoldam', cursive; /* 메뉴에도 포인트 폰트 적용 */
-        }
+        .top-nav a { text-decoration: none; color: #ffffff; font-weight: 800; font-size: 0.8rem; padding: 6px 15px; border-radius: 20px; transition: 0.3s; }
         .top-nav a.active { background: #ffffff; color: #ff85a1; box-shadow: 0 2px 8px rgba(255, 133, 161, 0.2); }
 
         .hero { height: 100vh; background-image: url('cover.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
@@ -35,34 +21,26 @@
         .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px 30px; border-radius: 25px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); width: 100%; }
         .container.wide { max-width: 1200px; padding: 40px 15px; }
 
-        /* 섹션 제목 스타일 */
-        h2 { 
-            display: table; margin: 0 auto 45px; background: #ffeef1; color: #ff85a1; padding: 10px 35px; border-radius: 30px; 
-            font-size: 1.7rem; letter-spacing: 1px; font-weight: normal;
-            font-family: 'JejuDoldam', cursive; /* 제주돌담체 적용 */
-        }
+        h2 { display: table; margin: 0 auto 45px; background: #ffeef1; color: #ff85a1; padding: 5px 25px; border-radius: 30px; font-size: 1.5rem; letter-spacing: 2px; font-weight: 900; }
 
         .notice-card { background: #fffbfc; padding: 25px; border-radius: 18px; margin-bottom: 20px; border: 1px solid #fff0f3; }
-        .notice-card h3 { font-size: 1.1rem; color: #ff85a1; margin-top: 0; margin-bottom: 12px; display: inline-block; padding-bottom: 4px; font-weight: 700; }
-        .notice-card p { font-size: 0.92rem; line-height: 1.8; color: #9a8084; margin: 8px 0; font-weight: 500; }
+        .notice-card h3 { font-size: 1.1rem; color: #ff85a1; margin-top: 0; margin-bottom: 12px; display: inline-block; padding-bottom: 4px; font-weight: 800; }
+        .notice-card p { font-size: 0.92rem; line-height: 1.8; color: #9a8084; margin: 8px 0; font-weight: 600; }
 
-        .order-highlight { background: #ffffff; padding: 18px; border-radius: 12px; text-align: center; font-weight: 600; color: #bbb; margin: 15px 0; font-size: 0.95rem; border: 1.5px solid #ffeef1; letter-spacing: 1px; }
+        .order-highlight { background: #ffffff; padding: 18px; border-radius: 12px; text-align: center; font-weight: 800; color: #bbb; margin: 15px 0; font-size: 0.95rem; border: 1.5px solid #ffeef1; letter-spacing: 1px; }
         
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 0 10px; }
-        .month-title { 
-            margin:0; font-size: 2rem; color: #ffb5c5; font-weight: normal;
-            font-family: 'JejuDoldam', cursive; /* 2月 등 표시에도 적용 */
-        }
+        .month-title { margin:0; font-size: 1.8rem; color: #ffb5c5; font-weight: 900; }
         .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
         
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border-top: 1px solid #fff0f3; border-left: 1px solid #fff0f3; }
         .day { padding: 5px 0; border-right: 1px solid #fff0f3; border-bottom: 1px solid #fff0f3; font-size: 0.75rem; min-height: 105px; color: #ccb0b5; background: #fff; display: flex; flex-direction: column; align-items: center; position: relative; }
         
         .day.today span.date-num { background: #ffcbd5; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .day span.date-num { margin-bottom: 6px; font-weight: 600; z-index: 2; }
-        .day.head { background: #fffdec; color: #ccb0b5; font-weight: 700; min-height: auto; padding: 15px 0; border-bottom: 1px solid #f9f3d5; }
+        .day span.date-num { margin-bottom: 6px; font-weight: 700; z-index: 2; }
+        .day.head { background: #fffdec; color: #ccb0b5; font-weight: 900; min-height: auto; padding: 15px 0; border-bottom: 1px solid #f9f3d5; }
         
-        .bar { height: 18px; font-size: 0.58rem; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; z-index: 1; }
+        .bar { height: 18px; font-size: 0.58rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; width: 100%; position: relative; z-index: 1; }
         .bar.start { border-radius: 10px 0 0 10px; width: 92%; margin-left: 8%; }
         .bar.end { border-radius: 0 10px 10px 0; width: 92%; margin-right: 8%; }
         .bar.middle { width: 100%; border-radius: 0; }
@@ -72,9 +50,11 @@
         .bg-ex { background-color: #f2faf2; color: #a8c4a8; }
         .bg-return { background-color: #e3f2fd; color: #90caf9; }
 
+        /* 생일 스타일 수정: 배경 없이 숫자와 같은 색상으로 */
         .birthday-tag {
             position: absolute; bottom: 8px; width: 100%; text-align: center;
-            font-size: 0.65rem; font-weight: 500; color: #ccb0b5;
+            font-size: 0.65rem; font-weight: 700; color: #ccb0b5; /* 숫자 색상과 통일 */
+            letter-spacing: -0.5px;
         }
 
         .board-wrapper { width: 100%; height: 75vh; border-radius: 18px; overflow: hidden; border: 1px solid #ffeef1; }
@@ -83,7 +63,7 @@
             section { padding: 80px 5px 40px; } 
             .container { padding: 25px 15px; border-radius: 15px; width: 96%; }
             .day { min-height: 95px; }
-            h2 { font-size: 1.4rem; padding: 8px 25px; }
+            .bar { font-size: 0.5rem; }
         }
     </style>
 </head>
@@ -134,7 +114,7 @@
         <div class="container wide">
             <h2>board</h2>
             <div style="text-align: center; margin-bottom: 20px;">
-                <p style="font-size: 0.9rem; font-weight: 600; color: #ff85a1; margin-bottom: 5px;" class="point-font">📸 share your moment</p>
+                <p style="font-size: 0.9rem; font-weight: 800; color: #ff85a1; margin-bottom: 5px;">📸 share your moment</p>
                 <p style="font-size: 0.8rem; color: #aaa;">(+) 버튼을 눌러 책 감상이나 재미있는 일상글을 남겨주세요!</p>
             </div>
             <div class="board-wrapper">
@@ -146,6 +126,8 @@
     <script>
         const monthNames = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
         const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+        
+        // 생일 문구 수정
         const birthdays = [
             { m: 1, d: 5, name: "원이 생일" },
             { m: 2, d: 13, name: "예진 생일" },
@@ -193,11 +175,15 @@
                 </div>
                 <div class="grid">`;
             dayNames.forEach(day => { html += `<div class="day head">${day}</div>`; });
+            
             for (let i = 0; i < firstDay; i++) html += `<div class="day"></div>`;
+            
             for (let d = 1; d <= lastDate; d++) {
                 const cur = new Date(year, monthIdx, d);
                 const isToday = now.getFullYear() === cur.getFullYear() && now.getMonth() === cur.getMonth() && now.getDate() === d;
+                
                 html += `<div class="day ${isToday ? 'today' : ''}"><span class="date-num">${d}</span>`;
+                
                 schedule.forEach(item => {
                     const s = new Date(item.start.getFullYear(), item.start.getMonth(), item.start.getDate());
                     const e = new Date(item.end.getFullYear(), item.end.getMonth(), item.end.getDate());
@@ -210,8 +196,12 @@
                         html += `<div class="bar bg-${item.type} ${shapeClass}">${labelText}</div>`;
                     }
                 });
+
                 const bday = birthdays.find(b => b.m === monthIdx && b.d === d);
-                if (bday) { html += `<div class="birthday-tag">${bday.name}</div>`; }
+                if (bday) {
+                    html += `<div class="birthday-tag">${bday.name}</div>`;
+                }
+
                 html += `</div>`;
             }
             const remainingSlots = totalSlots - (firstDay + lastDate);
@@ -220,7 +210,7 @@
             container.innerHTML = html;
         }
 
-        window.addEventListener('scroll', () => {
+            window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section, header');
             const navLinks = document.querySelectorAll('.nav-link');
             let current = "";
