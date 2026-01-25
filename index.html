@@ -7,7 +7,7 @@
     <link rel="icon" href="https://fav.farm/📖">
     
     <style>
-        /* 1. 폰트 파일 정의 (업로드하신 파일명과 정확히 일치해야 함) */
+        /* 폰트 파일 정의 */
         @font-face {
             font-family: 'MySCDream';
             src: url('SCDream4.otf') format('opentype');
@@ -25,13 +25,11 @@
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; scroll-padding-top: 70px; }
         
-        /* 기본 폰트: 에스코어 드림 */
         body, button, input, textarea { 
             font-family: 'MySCDream', sans-serif;
             margin: 0; padding: 0; background: #fffafb; color: #888; text-transform: lowercase; 
         }
         
-        /* 상단 네비게이션: 에스코어 드림 적용 (굵게) */
         .top-nav { position: fixed; top: 0; width: 100%; height: 55px; background: #ffcbd5; display: flex; justify-content: center; align-items: center; gap: 10px; z-index: 1000; box-shadow: 0 1px 10px rgba(255, 180, 190, 0.2); }
         .top-nav a { 
             text-decoration: none; color: #ffffff; font-size: 0.85rem; padding: 6px 15px; border-radius: 20px; transition: 0.3s;
@@ -45,7 +43,6 @@
         .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px 30px; border-radius: 25px; border: 1px solid #ffeef1; box-shadow: 0 10px 30px rgba(255, 230, 235, 0.5); width: 100%; }
         .container.wide { max-width: 1200px; padding: 40px 15px; }
 
-        /* 중간 큰 글씨(섹션 제목): 제주돌담체 적용 */
         h2 { 
             display: table; margin: 0 auto 45px; background: #ffeef1; color: #ff85a1; padding: 12px 35px; border-radius: 30px; 
             font-size: 1.8rem; letter-spacing: 1px; font-weight: normal;
@@ -59,7 +56,6 @@
         .order-highlight { background: #ffffff; padding: 18px; border-radius: 12px; text-align: center; font-weight: bold; color: #bbb; margin: 15px 0; font-size: 0.95rem; border: 1.5px solid #ffeef1; letter-spacing: 1px; }
         
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 0 10px; }
-        /* 달력 월 표시: 제주돌담체 적용 */
         .month-title { 
             margin:0; font-size: 2.2rem; color: #ffb5c5; font-weight: normal;
             font-family: 'MyJejuDoldam', cursive; 
@@ -155,17 +151,17 @@
     </section>
 
     <script>
-        // 생일 정보 등 기존 스크립트 그대로 유지
-        const monthNames = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+        // 월 표시를 '1월', '2월'... 형식으로 수정
+        const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
         const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
         const birthdays = [
-            { m: 1, d: 5, name: "원이 생일" },
-            { m: 2, d: 13, name: "예진 생일" },
-            { m: 6, d: 4, name: "서현 생일" },
-            { m: 6, d: 12, name: "우빈 생일" },
-            { m: 9, d: 15, name: "민주 생일" },
-            { m: 9, d: 24, name: "미나 생일" },
-            { m: 11, d: 31, name: "지은 생일" }
+            { m: 0, d: 5, name: "원이 생일" },
+            { m: 1, d: 13, name: "예진 생일" },
+            { m: 5, d: 4, name: "서현 생일" },
+            { m: 5, d: 12, name: "우빈 생일" },
+            { m: 8, d: 15, name: "민주 생일" },
+            { m: 8, d: 24, name: "미나 생일" },
+            { m: 10, d: 31, name: "지은 생일" }
         ];
 
         const startDate = new Date(2026, 1, 1);
