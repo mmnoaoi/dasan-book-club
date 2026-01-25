@@ -7,7 +7,7 @@
     <link rel="icon" href="https://fav.farm/📖">
     
     <style>
-        /* 폰트 파일 정의 */
+        /* 폰트 정의 */
         @font-face {
             font-family: 'MySCDream';
             src: url('SCDream4.otf') format('opentype');
@@ -57,7 +57,7 @@
         
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 0 10px; }
         .month-title { 
-            margin:0; font-size: 2.2rem; color: #ffb5c5; font-weight: normal;
+            margin:0; font-size: 2.5rem; color: #ffb5c5; font-weight: normal;
             font-family: 'MyJejuDoldam', cursive; 
         }
         .arrow-btn { cursor: pointer; border: none; background: #ffe4e9; color: #ff85a1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
@@ -151,17 +151,18 @@
     </section>
 
     <script>
-        // 월 표시를 '1월', '2월'... 형식으로 수정
-        const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+        const monthNames = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
         const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+        
+        // 생일 데이터를 직관적으로 수정 (월은 0부터 시작하므로 -1을 해줘야 함)
         const birthdays = [
-            { m: 0, d: 5, name: "원이 생일" },
-            { m: 1, d: 13, name: "예진 생일" },
-            { m: 5, d: 4, name: "서현 생일" },
-            { m: 5, d: 12, name: "우빈 생일" },
-            { m: 8, d: 15, name: "민주 생일" },
-            { m: 8, d: 24, name: "미나 생일" },
-            { m: 10, d: 31, name: "지은 생일" }
+            { m: 1-1, d: 5, name: "원이 생일" },
+            { m: 2-1, d: 13, name: "예진 생일" },
+            { m: 6-1, d: 4, name: "서현 생일" },
+            { m: 6-1, d: 12, name: "우빈 생일" },
+            { m: 9-1, d: 15, name: "민주 생일" },
+            { m: 9-1, d: 24, name: "미나 생일" },
+            { m: 11-1, d: 31, name: "지은 생일" }
         ];
 
         const startDate = new Date(2026, 1, 1);
